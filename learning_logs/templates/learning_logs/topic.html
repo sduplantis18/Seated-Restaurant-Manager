@@ -21,7 +21,7 @@
         </h4>
         <div class="card-body">
             {{ entry.text|linebreaks }}
-            ${{ entry.price }}
+            <img src="{{ entry.image.url }}" class="img-thumbnail">
         </div>
 
     </div>
@@ -31,3 +31,5 @@
     
 
 {% endblock content %}
+
+

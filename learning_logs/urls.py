@@ -14,14 +14,18 @@ urlpatterns = [
     path('topics/', views.topics, name='topics'),
     # Detail page for a simple topic
     path('topics/<int:topic_id>/', views.topic, name='topic'),
+    # Detail page for an Entry(restaurant)
+    path('entry<int:entry_id>/', views.entry, name='entry'),
     # Page for adding a new topic
     path('new_topic/', views.new_topic, name ='new_topic'),
-    # Page for adding a new entry
+    # Page for adding a new entry(Restaurant)
     path('new_entry/<int:topic_id>/', views.new_entry, name='new_entry'),
-    # Page for updating an existing entry
+    # Page for updating an existing entry(Restaurant)
     path('edit_entry/<int:entry_id>/', views.edit_entry, name='edit_entry'),
-    # Page for deleting a Topic(arena)
+    # Page for deleting a Topic(venue)
     path('delete/<int:topic_id>/', views.delete_topic, name='delete_topic'),
+    # Page for adding a new menu 
+    path('new_menu/<int:entry_id>/', views.new_menu, name='new_menu'),
 ]
 
 if settings.DEBUG:

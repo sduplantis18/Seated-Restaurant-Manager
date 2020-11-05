@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Topic(models.Model):
-    """A topic the user is learning about"""
+    """Veneu Details"""
     text = models.CharField(max_length=200)
     date_added = models.DateTimeField(auto_now_add=True)
     address = models.TextField(max_length=200, null=True)
@@ -16,16 +16,16 @@ class Topic(models.Model):
 
 
 class Entry(models.Model):
-    """Something specific learned about a topic"""
+    """A restuarant"""
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(null=True, blank=True, upload_to='menu_media')
-    price = models.DecimalField(max_digits=6, decimal_places=2, default=None, blank=True, null=True)
+    
 
 
     class Meta:
-        verbose_name_plural = 'Restaurants'
+        verbose_name_plural = 'entries'
 
     def __str__(self):
         """Return a string representation of the model"""
@@ -35,6 +35,21 @@ class Entry(models.Model):
             return self.text
 
 
+class Menu(models.Model):
+    """A Menu"""
+    restaurant = models.ForeignKey(Entry, on_delete=models.CASCADE)
+    title = models.TextField(max_length=50, null=False)
 
+    def __str__(self):
+        return self.title
+
+class Menu_item(models.Model):
+    """An item on a menu"""
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    title = models.TextField(max_length=50, null=False)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=None, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
     

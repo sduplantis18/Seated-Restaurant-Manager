@@ -1,9 +1,10 @@
+from django.http import request
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
 from .models import Topic, Entry
-from .forms import TopicForm, EntryForm
+from .forms import MenuForm, TopicForm, EntryForm
 
 # Create your views here.
 def index(request):
@@ -53,7 +54,7 @@ def new_topic(request):
 
 @login_required
 def new_entry(request, topic_id):
-    """Add new entry for a particular topic"""
+    """Add new restaurant associated within a venue"""
     topic = Topic.objects.get(id=topic_id)
 
     if request.method != 'POST':
@@ -102,3 +103,23 @@ def delete_topic(request, topic_id):
 
     context = {'topic':topic}
     return render(request, 'learning_logs/delete_topic.html', context)
+
+
+@login_required
+def new_menu(request, entry_id):
+    """Add a new menu to a restaurant"""
+    entry = Entry.objects.get(id=entry_id)
+    # Intial load of the form
+    if request.method != 'POST':
+        form = MenuForm()
+    # Post and process the data
+    else:
+        form = MenuForm(request.POST)
+        if form.is_valid:
+            new_menu = form.save(commit=False)
+            new_menu.entry = entry
+            new_entry.save()
+            #TODO Need to create a URL path for Entry (DONE)
+            # Create a template for the entry page
+            # Create a view for a single menu
+            return redirect()
