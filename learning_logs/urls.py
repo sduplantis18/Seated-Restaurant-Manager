@@ -20,6 +20,8 @@ urlpatterns = [
     path('new_entry/<int:topic_id>/', views.new_entry, name='new_entry'),
     # Page for updating an existing entry
     path('edit_entry/<int:entry_id>/', views.edit_entry, name='edit_entry'),
+    # Page for deleting a Topic(arena)
+    path('delete/<int:topic_id>/', views.delete_topic, name='delete_topic'),
 ]
 
 if settings.DEBUG:

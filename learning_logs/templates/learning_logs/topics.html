@@ -1,8 +1,10 @@
 <!-- Use the extends tag below to inherit from base.html -->
 {% extends 'learning_logs/base.html' %}
 
+{% load bootstrap4 %}
+
 {% block page_header %}
-<h1>Restaurants</h1>
+<h1>Venues</h1>
 {% endblock page_header %}
 
 {% block content %}
@@ -10,12 +12,13 @@
         {% for topic in topics %}
             <li><h3>
                 <a href="{% url 'learning_logs:topic' topic.id %}">{{  topic }}</a>
+                <a class="btn btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a>
             </h3></li>
         {% empty %}
-            <li><h3>No topics have been added yet</h3></li>
+            <li><h3>No venues have been added yet</h3></li>
         {% endfor %}
     </ul>
 
-    <h3><a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a></h3>
+    <h3><a href="{% url 'learning_logs:new_topic' %}">Add Venue</a></h3>
 
 {% endblock content %}

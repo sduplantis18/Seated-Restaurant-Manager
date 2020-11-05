@@ -1,29 +1,32 @@
 {% extends "learning_logs/base.html" %}
 
+{% load bootstrap4 %}
+
 {% block page_header %}
 <h3><p>{{ topic }}</p></h3>
-<img src="{{ topic.image.url }}">
+<img src="{{ topic.image.url }}" class="img-thumbnail">
 
 {% endblock page_header %}
 
 {% block content %}
     <p>
-        <a href="{% url 'learning_logs:new_entry' topic.id %}">Add a new entry</a>
+        <a href="{% url 'learning_logs:new_entry' topic.id %}">Add Restaurant</a>
     </p>
 
     
     {% for entry in entries %}
-    <div class="card mb-3">
+    <div class="card mb-4">
         <h4 class="card-header">
-            {{ entry.date_added|date:'M d, Y H:i' }}
-            <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a></small>
+            <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit restuarant</a></small>
         </h4>
         <div class="card-body">
             {{ entry.text|linebreaks }}
+            ${{ entry.price }}
         </div>
+
     </div>
     {% empty %}
-        <li>There are no entries for this topic yet.</li>
+        <li>There are no restuarants in this venue yet.</li>
     {% endfor %}    
     
 

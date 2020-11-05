@@ -41,7 +41,7 @@ def new_topic(request):
         form = TopicForm()
     else:
         # Post data submitted: process data
-        form = TopicForm(data=request.POST)
+        form = TopicForm(request.POST, request.FILES)
         if form.is_valid():
             new_topic = form.save(commit=False)
             new_topic.owner = request.user
@@ -61,7 +61,7 @@ def new_entry(request, topic_id):
         form = EntryForm()
     else:
         # POST data submitted; process data
-        form = EntryForm(data=request.POST)
+        form = EntryForm(request.POST, request.FILES)
         if form.is_valid():
             new_entry = form.save(commit=False)
             new_entry.topic = topic
@@ -89,3 +89,16 @@ def edit_entry(request, entry_id):
 
     context = {'entry':entry, 'topic':topic, 'form':form}
     return render(request, 'learning_logs/edit_entry.html', context)
+
+
+@login_required
+def delete_topic(request, topic_id):
+    """Delete a Topic"""
+    topic = Topic.objects.get(id=topic_id)
+
+    if request.method == 'POST':
+        topic.delete()
+        return redirect('learning_logs:topics')
+
+    context = {'topic':topic}
+    return render(request, 'learning_logs/delete_topic.html', context)

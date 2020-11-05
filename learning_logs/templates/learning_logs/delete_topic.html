@@ -1,0 +1,16 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+<p>Are you sure you want to delete? "{{topic}}"</p>
+
+{% block content %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <a href="{% url 'learning_logs:topics' %}">Cancel</a>
+
+        <input type="submit" name="Confirm">
+    </form>
+
+
+{% endblock content %}
