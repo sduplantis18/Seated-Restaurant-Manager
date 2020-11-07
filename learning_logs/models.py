@@ -37,8 +37,11 @@ class Entry(models.Model):
 
 class Menu(models.Model):
     """A Menu"""
-    restaurant = models.ForeignKey(Entry, on_delete=models.CASCADE)
+    entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
     title = models.TextField(max_length=50, null=False)
+
+    class Meta:
+        verbose_name_plural = 'menus'
 
     def __str__(self):
         return self.title
@@ -49,7 +52,11 @@ class Menu_item(models.Model):
     title = models.TextField(max_length=50, null=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, default=None, blank=True, null=True)
 
+    class Meta:
+        verbose_name_plural = 'menu items'
+
     def __str__(self):
         return self.title
+    
 
     

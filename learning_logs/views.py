@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
-from .models import Topic, Entry
+from .models import Topic, Entry, Menu
 from .forms import MenuForm, TopicForm, EntryForm
 
 # Create your views here.
@@ -33,6 +33,33 @@ def topic(request, topic_id):
     context = {'topic': topic, 'entries': entries}
     # send the context to the template
     return render(request, 'learning_logs/topic.html', context)
+
+
+@login_required
+def entries(request, topic_id):
+    """Show list of all entries within a topic"""
+    entries = Entry.objects.filter(id=topic_id)
+    context = {'entries':entries}
+    return render(request, 'learning_logs/entries.html', context)
+
+
+@login_required
+def entry(request, entry_id):
+    """Show a single entry (menu) & all its menu items"""
+    # query DB for entry id and store in entry variable
+    entry = Entry.objects.get(id=entry_id)
+    # Make sure the entry belongs to the current user
+    """
+    if entry.owner != request.user:
+        raise Http404
+    """
+    # query db for each menu in an entry (restaurant)
+    menus = entry.menu_set.order_by('title')
+    # store the menu and menu items in a dictionary
+    context = {'entry':entry, 'menus':menus}
+
+    # send the context to the template
+    return render(request, 'learning_logs/entry.html', context) 
 
 @login_required
 def new_topic(request):
@@ -121,5 +148,8 @@ def new_menu(request, entry_id):
             new_entry.save()
             #TODO Need to create a URL path for Entry (DONE)
             # Create a template for the entry page
-            # Create a view for a single menu
+            # Create a template for the Entries page
+            # create a template for the new menu page
+            # Create a view for a single menu (Don)
+            # Create a view for all menus within a restaurant (Done)
             return redirect()

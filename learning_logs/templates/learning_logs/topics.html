@@ -11,7 +11,7 @@
     <ul>
         {% for topic in topics %}
             <li><h3>
-                <a href="{% url 'learning_logs:topic' topic.id %}">{{  topic }}</a>
+                <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
                 <a class="btn btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a>
             </h3></li>
         {% empty %}

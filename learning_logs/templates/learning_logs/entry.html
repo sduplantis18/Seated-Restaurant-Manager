@@ -1,0 +1,10 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h1><a href="{% url 'learning_logs:entry' entry.id %}">..{{ entry }}</a></h1>
+{% endblock page_header %}
+
+{% block content %}
+
+{% endblock content %}
