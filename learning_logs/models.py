@@ -51,6 +51,7 @@ class Menu_item(models.Model):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     title = models.CharField(max_length=50, null=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, default=None, blank=True, null=True)
+    image = models.ImageField(null=True, blank=True, upload_to='menu_items')
 
     class Meta:
         verbose_name_plural = 'menu items'

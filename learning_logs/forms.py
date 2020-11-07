@@ -1,5 +1,5 @@
 from django import forms
-from .models import Menu, Topic, Entry
+from .models import Menu, Menu_item, Topic, Entry
 
 class TopicForm(forms.ModelForm):
     class Meta:
@@ -21,3 +21,8 @@ class MenuForm(forms.ModelForm):
         labels = {'title':'Menu Title'}
 
 
+class MenuItemForm(forms.ModelForm):
+    class Meta:
+        model = Menu_item
+        fields = ['title', 'price', 'image']
+        labels = {'title': 'Menu Item', 'price':'price', 'image':'Thumbnail'}

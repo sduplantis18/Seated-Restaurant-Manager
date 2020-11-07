@@ -1,0 +1,31 @@
+{% extends "learning_logs/base.html" %}
+
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h3><p>{{ menu }}</p></h3>
+{% endblock page_header %}
+
+{% block content %}
+    <p>
+        <a href="{% url 'learning_logs:new_menu_item' menu.id %}">Add Menu Item</a>
+    </p>
+
+    
+    {% for menu_item in menu_items %}
+    <div class="card mb-4">
+        <h4 class="card-header">
+            <small><a href="{% url 'learning_logs:menu_item' menu_item.id %}">{{ menu_item }}</a></small>
+            - <small><a href="{% url 'learning_logs:edit_menu_item' menu_item.id %}">Edit</a></small>
+        </h4>
+        <div class="card-body">
+            <img src="{{ menu_item.image.url }}" class="img-thumbnail">
+        </div>
+
+    </div>
+    {% empty %}
+        <li>There are no itesm added to this menu yet.</li>
+    {% endfor %}    
+    
+
+{% endblock content %}
