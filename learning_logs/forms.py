@@ -18,6 +18,6 @@ class MenuForm(forms.ModelForm):
     class Meta:
         model = Menu
         fields = ['title']
-        labels = {'title':'title'}
+        labels = {'title':'Menu Title'}
 
 

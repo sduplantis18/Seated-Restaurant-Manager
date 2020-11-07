@@ -49,7 +49,7 @@ class Menu(models.Model):
 class Menu_item(models.Model):
     """An item on a menu"""
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    title = models.TextField(max_length=50, null=False)
+    title = models.CharField(max_length=50, null=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, default=None, blank=True, null=True)
 
     class Meta:

@@ -145,11 +145,27 @@ def new_menu(request, entry_id):
         if form.is_valid:
             new_menu = form.save(commit=False)
             new_menu.entry = entry
-            new_entry.save()
-            #TODO Need to create a URL path for Entry (DONE)
-            # Create a template for the entry page
-            # Create a template for the Entries page
-            # create a template for the new menu page
-            # Create a view for a single menu (Don)
-            # Create a view for all menus within a restaurant (Done)
-            return redirect()
+            form.save()
+            return redirect('learning_logs:entry', entry_id=entry_id)
+    
+    # display context and render the html to display the form
+    context = {'entry':entry, 'form':form }
+    return render(request, 'learning_logs/new_menu.html', context)
+
+
+@login_required
+def menu(request, menu_id):
+    """View a menu & its menu_items"""
+    # query db for specific menu_id and store in menu variable
+    menu = Menu.objects.get(id=menu_id)
+    # Make sure the topic belongs to the current user
+    """
+    if menu.owner != request.user:
+        raise Http404
+    """
+    # query db for menu_items for each menu and sort by title 
+    menu_items = menu.menu_item_set.order_by('title')
+    # store the menu and the menu items in a dictionary
+    context = {'menu': menu, 'menu_items': menu_items}
+    # send the context to the template
+    return render(request, 'learning_logs/menu.html', context)

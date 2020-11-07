@@ -26,6 +26,8 @@ urlpatterns = [
     path('delete/<int:topic_id>/', views.delete_topic, name='delete_topic'),
     # Page for adding a new menu 
     path('new_menu/<int:entry_id>/', views.new_menu, name='new_menu'),
+    # Page for a menu
+    path('menu/<int:menu_id>/', views.menu, name='menu'),
 ]
 
 if settings.DEBUG:
