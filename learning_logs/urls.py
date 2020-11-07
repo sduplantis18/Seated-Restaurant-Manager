@@ -29,9 +29,7 @@ urlpatterns = [
     # Page for a menu
     path('menu/<int:menu_id>/', views.menu, name='menu'),
     # Page for a new menu_item
-    path('new_menu_item/', views.new_menu_item, name='new_menu_item'),
-    # Page for a menu_item
-    path('menu_item/<int:menu_item_id>/', views.menu_item, name='menu_item'),
+    path('new_menu_item/<int:menu_id>/', views.new_menu_item, name='new_menu_item'),
     # Page for editing a menu item
     path('edit_menu_item/<int:menu_item_id>/', views.edit_menu_item, name='edit_menu_item'),
 ]

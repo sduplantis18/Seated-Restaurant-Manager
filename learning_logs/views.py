@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
-from .models import Topic, Entry, Menu
-from .forms import MenuForm, TopicForm, EntryForm
+from .models import Topic, Entry, Menu, Menu_item
+from .forms import MenuForm, MenuItemForm, TopicForm, EntryForm
 
 # Create your views here.
 def index(request):
@@ -169,3 +169,44 @@ def menu(request, menu_id):
     context = {'menu': menu, 'menu_items': menu_items}
     # send the context to the template
     return render(request, 'learning_logs/menu.html', context)
+
+
+@login_required
+def new_menu_item(request, menu_id):
+    """Create a new menu_item"""
+    menu = Menu.objects.get(id=menu_id)
+    # Intial load of the form
+    if request.method != 'POST':
+        form = MenuItemForm()
+    # Post and process the data
+    else:
+        form = MenuItemForm(request.POST, request.FILES)
+        if form.is_valid:
+            new_menu_item = form.save(commit=False)
+            new_menu_item.menu = menu
+            form.save()
+            return redirect('learning_logs:menu', menu_id=menu_id)
+    
+    # display context and render the html to display the form
+    context = {'menu':menu, 'form':form }
+    return render(request, 'learning_logs/new_menu_item.html', context)
+
+
+@login_required
+def edit_menu_item(request, menu_item_id):
+    """Edit a menu item"""
+    menu_item = Menu_item.objects.get(id=menu_item_id)
+    menu = menu_item.menu
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with current entry
+        form = MenuItemForm(instance=menu_item)
+    else:
+        # POST data submitted; process data
+        form = MenuItemForm(instance=menu_item, data=request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('learning_logs:menu', menu_id=menu.id)
+
+    context = {'menu_item':menu_item, 'menu':menu, 'form':form}
+    return render(request, 'learning_logs/edit_menu_item.html', context)

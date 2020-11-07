@@ -24,5 +24,5 @@ class MenuForm(forms.ModelForm):
 class MenuItemForm(forms.ModelForm):
     class Meta:
         model = Menu_item
-        fields = ['title', 'price', 'image']
-        labels = {'title': 'Menu Item', 'price':'price', 'image':'Thumbnail'}
+        fields = ['title', 'price', 'image', 'quantity']
+        labels = {'title': 'Menu Item', 'price':'price', 'image':'Thumbnail', 'quantity':'quantitiy'}

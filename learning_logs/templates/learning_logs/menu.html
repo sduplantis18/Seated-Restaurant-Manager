@@ -15,7 +15,7 @@
     {% for menu_item in menu_items %}
     <div class="card mb-4">
         <h4 class="card-header">
-            <small><a href="{% url 'learning_logs:menu_item' menu_item.id %}">{{ menu_item }}</a></small>
+            <small>{{ menu_item }}</small>
             - <small><a href="{% url 'learning_logs:edit_menu_item' menu_item.id %}">Edit</a></small>
         </h4>
         <div class="card-body">
@@ -24,7 +24,7 @@
 
     </div>
     {% empty %}
-        <li>There are no itesm added to this menu yet.</li>
+        <p>There are no items added to this menu yet.</p>
     {% endfor %}    
     
 
