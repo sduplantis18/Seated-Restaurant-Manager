@@ -1,0 +1,19 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h1><a href="{% url 'learning_logs:menu' menu.id %}">{{ menu }}</a></h1>
+{% endblock page_header %}
+
+{% block content %}
+
+    <form action="{% url 'learning_logs:edit_menu_item' menu_item.id%}" method = 'POST'>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button name="submit" class="bt btn-primary">Save changes</button>
+        {% endbuttons %}
+    </form>
+
+{% endblock content %}
+

@@ -2,22 +2,26 @@
 {% extends 'learning_logs/base.html' %}
 
 {% load bootstrap4 %}
+{% load static %}
 
 {% block page_header %}
 <h1>Venues</h1>
 {% endblock page_header %}
 
 {% block content %}
-    <ul>
-        {% for topic in topics %}
-            <li><h3>
-                <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
-                <a class="btn btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a>
-            </h3></li>
-        {% empty %}
-            <li><h3>No venues have been added yet</h3></li>
-        {% endfor %}
-    </ul>
+    {% for topic in topics %}
+    <div class="card mb-4">
+        <h4 class="card-header"><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a> - <a class="btn btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a></h4>
+        <div class="card-body">
+            <img src="{{ topic.image.url }}" class="img-thumbnail">
+        </div>
+    </div>
+
+    
+            
+    {% empty %}
+        <h3>No venues have been added yet</h3>
+    {% endfor %}
 
     <h3><a href="{% url 'learning_logs:new_topic' %}">Add Venue</a></h3>
 
