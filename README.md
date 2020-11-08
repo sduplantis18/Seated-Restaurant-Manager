@@ -1,5 +1,5 @@
 # Seated Prototype
- Setaed restuarant manager app prototype
+ Seated restuarant manager app MVP
 
  # Dependencies 
  ## Install from Requirements.txt
