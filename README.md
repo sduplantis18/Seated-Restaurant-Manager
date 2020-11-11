@@ -1,5 +1,5 @@
 # Seated Prototype
- Setaed restuarant manager app prototype
+ Seated restuarant manager app MVP
 
  # Dependencies 
- ## Must install Django, Django-boostrap4
+ ## Install from Requirements.txt
