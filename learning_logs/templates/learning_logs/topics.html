@@ -6,6 +6,7 @@
 
 {% block page_header %}
 <h1>Venues</h1>
+<h3><a href="{% url 'learning_logs:new_topic' %}">Add Venue</a></h3>
 {% endblock page_header %}
 
 {% block content %}
@@ -23,6 +24,5 @@
         <h3>No venues have been added yet</h3>
     {% endfor %}
 
-    <h3><a href="{% url 'learning_logs:new_topic' %}">Add Venue</a></h3>
 
 {% endblock content %}

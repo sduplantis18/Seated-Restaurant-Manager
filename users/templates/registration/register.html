@@ -1,13 +1,9 @@
 {% extends "learning_logs/base.html" %}
-
+{% load bootstrap4 %}
 {% block content %}
 
-<form method="POST" action="{% url 'users:register' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
+<a href="{% url 'users:customer_register' %}">I am a customer</a>
+<a href="{% url 'users:manager_register' %}">I am a Manager</a>
 
-    <button name="submit">Register</button>
-    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
-</form>
 
 {% endblock content %}

@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.db.models.fields import CharField
+
 
 # Create your models here.
 class Topic(models.Model):
@@ -7,9 +9,12 @@ class Topic(models.Model):
     text = models.CharField(max_length=200)
     date_added = models.DateTimeField(auto_now_add=True)
     address = models.TextField(max_length=200, null=True)
+    zip_code = models.IntegerField(null=False, default=33609)
+    city = models.CharField(max_length=50, null=False, default='Tampa')
+    State = CharField(null=False, max_length=50, default='Florida')
+    country = CharField(null=False, max_length=50, default='United States')
     image = models.ImageField(null=True, blank=True, upload_to='arena_pics')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         """Return a string representation of the model"""
         return self.text
@@ -61,4 +66,3 @@ class Menu_item(models.Model):
         return self.title
     
 
-    

@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
 
-    <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Restaurant Manager</a>
+    <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Seated</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle Navigation">
         <span class="navbar-toggler-icon"></span>
@@ -31,17 +31,17 @@
         <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <span class="navbar-text"}">Hello, {{ user.username }}.</span>
+                <span class="navbar-text"}>Hello, {{ user.username }}.</span>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+                <a class="nav-link" href="{% url 'users:logout_view' %}">Logout</a>
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+                <a class="nav-link" href="{% url 'users:register' %}">Register A business</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+                <a class="nav-link" href="{% url 'users:login_request' %}">Sign in</a>
             </li>
             {% endif %}
         </ul>
