@@ -1,1 +1,13 @@
 
+.hero {
+    height: 100vh;
+    background-image: url("/static/seated_banner.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.hero-header {
+    text-align: center;
+    color: blue;
+}

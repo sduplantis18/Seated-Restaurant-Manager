@@ -38,7 +38,10 @@
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:register' %}">Register A business</a>
+                <a class="nav-link" href="{% url 'users:manager_register' %}">Register A business</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:customer_register' %}">Signup</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'users:login_request' %}">Sign in</a>

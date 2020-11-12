@@ -1,11 +1,12 @@
 {% extends "learning_logs/base.html" %}
+{% load static %}
 
 {% block page_header %}
-    <div class="jumbotron">
-        <h1 class="display-3">Manage your restuarant.</h1>
-        <p class="lead">Upload your menu, manage menu items, connect to your Point of Sale system, view metrics on your deliveries and get insights into customer preferences.</p>
-
-        <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}" role="button">Register &raquo;</a>
-    </div>
+    <section class="hero">
+        <header class="hero-header">
+            <h1 class="hero-title">Skip the line dont miss the game.</h1>
+            <p>Get your favorite food and drinks delivered right to your seat.</p>
+        </header>
+    </section>
 
 {% endblock page_header %}

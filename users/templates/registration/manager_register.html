@@ -5,7 +5,7 @@
 
 <form method="POST" action="{% url 'users:manager_register' %}">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% bootstrap_form form %}
 
     <button name="submit">Register</button>
     <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
