@@ -11,21 +11,21 @@ def index(request):
     """The home page for learning_logs"""
     return render(request, 'learning_logs/index.html')
 
-@login_required
+
 def topics(request):
     """Show all topics"""
-    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
+    topics = Topic.objects.all()
     context = {'topics':topics}
     return render(request, 'learning_logs/topics.html', context)
 
-@login_required
+
 def topic(request, topic_id):
     """Show a single topic and all its entries"""
     # query db for topic id and store in topic variable
     topic = Topic.objects.get(id=topic_id)
     # Make sure the topic belongs to the current user
-    if topic.owner != request.user:
-        raise Http404
+    # if topic.owner != request.user:
+        #raise Http404
 
     # query db for entries for each topic and sort by date added. The minus sign in front of date_added sorts in reverse order.
     entries = topic.entry_set.order_by('-date_added')
@@ -35,7 +35,7 @@ def topic(request, topic_id):
     return render(request, 'learning_logs/topic.html', context)
 
 
-@login_required
+
 def entries(request, topic_id):
     """Show list of all entries within a topic"""
     entries = Entry.objects.filter(id=topic_id)
@@ -43,7 +43,7 @@ def entries(request, topic_id):
     return render(request, 'learning_logs/entries.html', context)
 
 
-@login_required
+
 def entry(request, entry_id):
     """Show a single entry (menu) & all its menu items"""
     # query DB for entry id and store in entry variable
@@ -61,7 +61,7 @@ def entry(request, entry_id):
     # send the context to the template
     return render(request, 'learning_logs/entry.html', context) 
 
-@login_required
+
 def new_topic(request):
     """Add a new topic"""
     if request.method != 'POST':
@@ -79,7 +79,7 @@ def new_topic(request):
     context = {'form':form}
     return render(request, 'learning_logs/new_topic.html', context)
 
-@login_required
+
 def new_entry(request, topic_id):
     """Add new restaurant associated within a venue"""
     topic = Topic.objects.get(id=topic_id)
@@ -100,7 +100,7 @@ def new_entry(request, topic_id):
     context = {'topic':topic, 'form':form}
     return render(request, 'learning_logs/new_entry.html', context)
 
-@login_required
+
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
@@ -119,7 +119,7 @@ def edit_entry(request, entry_id):
     return render(request, 'learning_logs/edit_entry.html', context)
 
 
-@login_required
+
 def delete_topic(request, topic_id):
     """Delete a Topic"""
     topic = Topic.objects.get(id=topic_id)
@@ -132,7 +132,7 @@ def delete_topic(request, topic_id):
     return render(request, 'learning_logs/delete_topic.html', context)
 
 
-@login_required
+
 def new_menu(request, entry_id):
     """Add a new menu to a restaurant"""
     entry = Entry.objects.get(id=entry_id)
@@ -153,7 +153,7 @@ def new_menu(request, entry_id):
     return render(request, 'learning_logs/new_menu.html', context)
 
 
-@login_required
+
 def menu(request, menu_id):
     """View a menu & its menu_items"""
     # query db for specific menu_id and store in menu variable
@@ -171,7 +171,7 @@ def menu(request, menu_id):
     return render(request, 'learning_logs/menu.html', context)
 
 
-@login_required
+
 def new_menu_item(request, menu_id):
     """Create a new menu_item"""
     menu = Menu.objects.get(id=menu_id)
@@ -192,7 +192,7 @@ def new_menu_item(request, menu_id):
     return render(request, 'learning_logs/new_menu_item.html', context)
 
 
-@login_required
+
 def edit_menu_item(request, menu_item_id):
     """Edit a menu item"""
     menu_item = Menu_item.objects.get(id=menu_item_id)
@@ -210,3 +210,6 @@ def edit_menu_item(request, menu_item_id):
 
     context = {'menu_item':menu_item, 'menu':menu, 'form':form}
     return render(request, 'learning_logs/edit_menu_item.html', context)
+
+
+

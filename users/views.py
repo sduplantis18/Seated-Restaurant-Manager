@@ -1,35 +1,36 @@
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import request
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.contrib.auth import login, authenticate, logout
 from django.views.generic import CreateView
+from django.http import request
 from . models import User, Customer, Manager
 from . forms import CustomerSingupForm, ManagerSingupForm
 
 
+
 # Create your views here.
-def register(request):
-    return render(request, '../templates/registration/register.html')
 
 class customer_register(CreateView):
     model = User
     form_class = CustomerSingupForm
     template_name = '../templates/registration/customer_register.html'
+    success_url = '/customer/home/'
 
     def validation(self, form):
         user=form.save()
-        login(self.request,user)
-        return redirect('learning_logs:topics')
+        login(self.request, user)
+        return redirect('customer:home')
 
 class manager_register(CreateView):
-    model = Manager
+    model = User
     form_class = ManagerSingupForm
     template_name = '../templates/registration/manager_register.html'
+    success_url = '/learning_logs/index/'
 
     def validation(self, form):
         user=form.save()
-        login(self.request,user)
+        login(self.request, user)
         return redirect('learning_logs:topics')
 
 
@@ -42,6 +43,7 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request,user)
+                messages.success(request, "Welcome")
                 return redirect('learning_logs:index')
             else: 
                 messages.error(request, "Invalid username or password")

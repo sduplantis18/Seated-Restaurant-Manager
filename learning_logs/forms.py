@@ -4,8 +4,8 @@ from .models import Menu, Menu_item, Topic, Entry
 class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
-        fields = ['text','image']
-        labels = {'text':''}
+        fields = ['text','image', 'address', 'city', 'zip_code', 'State', 'country']
+        labels = {'text':'Title', 'image':'Thumbnail', 'address':'Address', 'city':'City', 'zip_code':'Zip Code', 'State':'State', 'country':'Country'}
 
 class EntryForm(forms.ModelForm):
     class Meta:

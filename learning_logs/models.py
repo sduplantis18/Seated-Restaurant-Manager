@@ -20,6 +20,18 @@ class Topic(models.Model):
         return self.text
 
 
+class Section(models.Model):
+    name = models.CharField(max_length=50)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+
+class Row(models.Model):
+    name = models.CharField(max_length=10)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+
+class Seat(models.Model):
+    number = models.IntegerField()
+    row = models.ForeignKey(Row, on_delete=models.CASCADE)
+
 class Entry(models.Model):
     """A restuarant"""
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
