@@ -1,6 +1,9 @@
+from django.contrib.auth import login
+from users.decorators import manager_required
 from django.http import request
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from users.decorators import manager_required
 from django.http import Http404
 
 from .models import Topic, Entry, Menu, Menu_item
@@ -43,16 +46,17 @@ def entries(request, topic_id):
     return render(request, 'learning_logs/entries.html', context)
 
 
-
+@login_required
+@manager_required
 def entry(request, entry_id):
     """Show a single entry (menu) & all its menu items"""
     # query DB for entry id and store in entry variable
     entry = Entry.objects.get(id=entry_id)
     # Make sure the entry belongs to the current user
-    """
+    
     if entry.owner != request.user:
         raise Http404
-    """
+    
     # query db for each menu in an entry (restaurant)
     menus = entry.menu_set.order_by('title')
     # store the menu and menu items in a dictionary
@@ -61,7 +65,8 @@ def entry(request, entry_id):
     # send the context to the template
     return render(request, 'learning_logs/entry.html', context) 
 
-
+@login_required
+@manager_required
 def new_topic(request):
     """Add a new topic"""
     if request.method != 'POST':
@@ -79,7 +84,8 @@ def new_topic(request):
     context = {'form':form}
     return render(request, 'learning_logs/new_topic.html', context)
 
-
+@login_required
+@manager_required
 def new_entry(request, topic_id):
     """Add new restaurant associated within a venue"""
     topic = Topic.objects.get(id=topic_id)
@@ -92,7 +98,7 @@ def new_entry(request, topic_id):
         form = EntryForm(request.POST, request.FILES)
         if form.is_valid():
             new_entry = form.save(commit=False)
-            new_entry.topic = topic
+            new_entry.owner = request.user
             new_entry.save()
             return redirect('learning_logs:topic', topic_id=topic_id)
     
@@ -100,7 +106,8 @@ def new_entry(request, topic_id):
     context = {'topic':topic, 'form':form}
     return render(request, 'learning_logs/new_entry.html', context)
 
-
+@login_required
+@manager_required
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
@@ -118,16 +125,20 @@ def edit_entry(request, entry_id):
     context = {'entry':entry, 'topic':topic, 'form':form}
     return render(request, 'learning_logs/edit_entry.html', context)
 
-
-
+'''
+This view is restricted to restaurant managers only
+'''
+@login_required
+@manager_required
 def delete_topic(request, topic_id):
     """Delete a Topic"""
+    #query db for the Arena by id and store in topic
     topic = Topic.objects.get(id=topic_id)
-
+    # if the request method is a post then delete
     if request.method == 'POST':
         topic.delete()
         return redirect('learning_logs:topics')
-
+    #display the delete topic page
     context = {'topic':topic}
     return render(request, 'learning_logs/delete_topic.html', context)
 

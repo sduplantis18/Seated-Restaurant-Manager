@@ -15,7 +15,9 @@ class customer_register(CreateView):
     model = User
     form_class = CustomerSingupForm
     template_name = '../templates/registration/customer_register.html'
-    success_url = '/customer/home/'
+    success_url = '/'
+
+
 
     def validation(self, form):
         user=form.save()
@@ -26,7 +28,7 @@ class manager_register(CreateView):
     model = User
     form_class = ManagerSingupForm
     template_name = '../templates/registration/manager_register.html'
-    success_url = '/learning_logs/index/'
+    success_url = '/'
 
     def validation(self, form):
         user=form.save()
