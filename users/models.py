@@ -1,5 +1,5 @@
 
-from learning_logs.views import topic
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 

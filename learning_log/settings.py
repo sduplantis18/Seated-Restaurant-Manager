@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'bootstrap4',
 
     # Default Django Apps
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

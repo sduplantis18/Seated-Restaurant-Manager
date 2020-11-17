@@ -5,14 +5,20 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.decorators import manager_required
 from django.http import Http404
+from .filters import TopicFilter
 
 from .models import Topic, Entry, Menu, Menu_item
 from .forms import MenuForm, MenuItemForm, TopicForm, EntryForm
 
 # Create your views here.
 def index(request):
-    """The home page for learning_logs"""
-    return render(request, 'learning_logs/index.html')
+    #query all topics in the db
+    topics = Topic.objects.all()
+    #implement the filter for zipcode
+    myFilter = TopicFilter(request.GET, queryset=topics)
+    topics = myFilter.qs
+    context = {'topics':topics, 'myFilter':myFilter}
+    return render(request, 'learning_logs/index.html', context)
 
 
 def topics(request):
@@ -36,7 +42,6 @@ def topic(request, topic_id):
     context = {'topic': topic, 'entries': entries}
     # send the context to the template
     return render(request, 'learning_logs/topic.html', context)
-
 
 
 def entries(request, topic_id):

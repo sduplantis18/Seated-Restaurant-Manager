@@ -1,16 +1,40 @@
 {% extends "learning_logs/base.html" %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block page_header %}
     <section class="hero">
         <header class="hero-header">
             <h1 class="hero-title">Skip the line dont miss the game.</h1>
             <p>Get your favorite food and drinks delivered right to your seat.</p>
+
+            <!-- Search form -->
+        <form method="get">
+            {{myFilter.form}}
+        <button class="btn btn-primary" type="submit">Search</button>
+        </form>
         </header>
-        <!-- Search form -->
-        <div class="md-form active-cyan-2 mb-3">
-            <input class="form-control" type="text" placeholder="Enter Zip Code" aria-label="Search">
-          </div>
+        
     </section>
 
 {% endblock page_header %}
+
+
+
+{% block content %}
+    {% for topic in topics %}
+    
+    <section>
+    <div class="card mb-4">
+        <h4 class="card-header"><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a> {{topic.city}}, {{topic.State}} 
+            - <a class="btn btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a></h4>
+
+        <div class="card-body">
+            <img src="{{ topic.image.url }}" class="img-thumbnail">
+        </div>
+    </div>  
+    {% empty %}
+        <h3>No venues have been added yet</h3>
+    {% endfor %}
+    </section>
+{% endblock content %}
