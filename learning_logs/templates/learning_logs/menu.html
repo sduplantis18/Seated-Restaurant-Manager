@@ -4,20 +4,27 @@
 
 {% block page_header %}
 <h3><p>{{ menu }}</p></h3>
-{% endblock page_header %}
-
-{% block content %}
+{% if request.user.is_manager %}
     <p>
         <a href="{% url 'learning_logs:new_menu_item' menu.id %}">Add Menu Item</a>
     </p>
+    {% else %}
+    {% endif %}
+{% endblock page_header %}
 
-    
+{% block content %}
     {% for menu_item in menu_items %}
     <div class="row">
         <div class="card sm-6">
             <h4 class="card-header">
                 <small>{{ menu_item }}</small>
+            {% if request.user.is_manager %}    
                 - <small><a href="{% url 'learning_logs:edit_menu_item' menu_item.id %}">Edit</a></small>
+            {% else %}
+            <button data-menu_item={{menu_item.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <a class="btn btn-outline-success" href="#">View</a>
+            <small>${{menu_item.price}}</small>
+            {% endif %}
             </h4>
         <div class="card-body">
             <img src="{{ menu_item.image.url }}" class="img-thumbnail">

@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.db.models.fields import CharField
 
+User = settings.AUTH_USER_MODEL
+
 
 # Create your models here.
 class Topic(models.Model):
@@ -38,6 +40,7 @@ class Entry(models.Model):
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(null=True, blank=True, upload_to='menu_media')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     
 
 

@@ -1,10 +1,9 @@
 from django.contrib.auth import login
 from users.decorators import manager_required
-from django.http import request
+from django.http import request, Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.decorators import manager_required
-from django.http import Http404
 from .filters import TopicFilter
 
 from .models import Topic, Entry, Menu, Menu_item
@@ -51,15 +50,13 @@ def entries(request, topic_id):
     return render(request, 'learning_logs/entries.html', context)
 
 
-@login_required
-@manager_required
+
 def entry(request, entry_id):
     """Show a single entry (menu) & all its menu items"""
     # query DB for entry id and store in entry variable
     entry = Entry.objects.get(id=entry_id)
-    # Make sure the entry belongs to the current user
-    
-    if entry.owner != request.user:
+    # Ensure an owner exist
+    if entry.owner is None:
         raise Http404
     
     # query db for each menu in an entry (restaurant)
@@ -104,6 +101,7 @@ def new_entry(request, topic_id):
         if form.is_valid():
             new_entry = form.save(commit=False)
             new_entry.owner = request.user
+            new_entry.topic = topic
             new_entry.save()
             return redirect('learning_logs:topic', topic_id=topic_id)
     

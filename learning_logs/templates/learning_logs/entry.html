@@ -6,9 +6,13 @@
 {% endblock page_header %}
 
 {% block content %}
+{% if request.user.is_manager %}
 <p>
     <a href="{% url 'learning_logs:new_menu' entry.id %}">Add Menu</a>
 </p>   
+{% else %}
+
+{% endif %}
 
     {% for menu in menus %}
     <div class="card mb-4">

@@ -27,8 +27,11 @@
     <section>
     <div class="card mb-4">
         <h4 class="card-header"><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a> {{topic.city}}, {{topic.State}} 
+        {% if request.user.is_manager %}   
             - <a class="btn btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a></h4>
-
+        {% else %}
+        ...
+        {% endif %}
         <div class="card-body">
             <img src="{{ topic.image.url }}" class="img-thumbnail">
         </div>

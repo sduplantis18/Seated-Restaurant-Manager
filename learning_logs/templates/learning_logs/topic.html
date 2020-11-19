@@ -10,16 +10,23 @@
 {% endblock page_header %}
 
 {% block content %}
+    {% if request.user.is_manager %}
     <p>
         <a href="{% url 'learning_logs:new_entry' topic.id %}">Add Restaurant</a>
     </p>
+    {% else %}
+    {% endif %}
 
     
     {% for entry in entries %}
     <div class="card mb-4">
         <h4 class="card-header">
             <small><a href="{% url 'learning_logs:entry' entry.id %}">{{ entry }}</a></small>
+        {% if request.user.is_manager %}
             - <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit</a></small>
+        {% else %}
+        ...
+        {% endif %}
         </h4>
         <div class="card-body">
             {{ entry.text|linebreaks }}
