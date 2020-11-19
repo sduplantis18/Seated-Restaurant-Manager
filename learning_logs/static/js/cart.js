@@ -17,7 +17,7 @@ window.onload = function() {
 }}
 
 function updateUserOrder(menuitemId, action){
-    console.log('User is logged in, sending date...')
+    console.log('User is logged in, sending data...')
 
     var url = '/update_item/'
 
@@ -27,7 +27,7 @@ function updateUserOrder(menuitemId, action){
             'Content-Type':'application/json',
             'X-CSRFToken': csrftoken,
         },
-        body: JSON.stringify({'menuitemId': menuitemId, 'action:': action})
+        body: JSON.stringify({'menuitemId': menuitemId, 'action': action})
     })
 
     .then((response) =>{

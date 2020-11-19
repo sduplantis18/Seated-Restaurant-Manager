@@ -1,3 +1,4 @@
+import json
 from django.contrib.auth import login
 from django.http.response import JsonResponse
 from users.decorators import manager_required
@@ -6,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.decorators import manager_required
 from .filters import TopicFilter
-
+from customer.models import Order
 from .models import Topic, Entry, Menu, Menu_item
 from .forms import MenuForm, MenuItemForm, TopicForm, EntryForm
 
@@ -229,4 +230,16 @@ def edit_menu_item(request, menu_item_id):
 
 
 def updateItem(request):
+    data = json.loads(request.data)
+    menuitemId = data['menuitemId']
+    action = data['action']
+
+    print('Action:', action)
+    print('menuItem:', menuitemId)
+
+    customer = request.user.is_customer
+    menu_item = Menu_item.objects.get(id=menuitemId)
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    
+    
     return JsonResponse('Item was added', safe=False)
