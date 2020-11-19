@@ -1,5 +1,5 @@
 {% extends "learning_logs/base.html" %}
-
+{% load static %}
 {% load bootstrap4 %}
 
 {% block page_header %}
@@ -21,7 +21,7 @@
             {% if request.user.is_manager %}    
                 - <small><a href="{% url 'learning_logs:edit_menu_item' menu_item.id %}">Edit</a></small>
             {% else %}
-            <button data-menu_item={{menu_item.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <button data-menuitem={{menu_item.id}} data-action="add" class="btn btn-outline-secondary add-btn updatecart">Add to Cart</button>
             <a class="btn btn-outline-success" href="#">View</a>
             <small>${{menu_item.price}}</small>
             {% endif %}

@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.http.response import JsonResponse
 from users.decorators import manager_required
 from django.http import request, Http404
 from django.shortcuts import render, redirect
@@ -227,3 +228,5 @@ def edit_menu_item(request, menu_item_id):
 
 
 
+def updateItem(request):
+    return JsonResponse('Item was added', safe=False)
