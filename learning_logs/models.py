@@ -26,13 +26,22 @@ class Section(models.Model):
     name = models.CharField(max_length=50)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 class Row(models.Model):
     name = models.CharField(max_length=10)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 class Seat(models.Model):
     number = models.IntegerField()
     row = models.ForeignKey(Row, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.number)
 
 class Entry(models.Model):
     """A restuarant"""
@@ -41,8 +50,6 @@ class Entry(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(null=True, blank=True, upload_to='menu_media')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    
-
 
     class Meta:
         verbose_name_plural = 'entries'
