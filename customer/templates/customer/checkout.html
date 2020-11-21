@@ -1,0 +1,70 @@
+{% extends "learning_logs/base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h3>Checkout</h3>
+{% endblock page_header %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="box-elemennt" id="form-wrapper">
+            <form id="form">
+                <div id="user-info">
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="name" placeholder="Name..">
+                    </div>
+                    <div class="form-field">
+                        <input required class="form-control" type="email" name="email" placeholder="Email Address..">
+                    </div>
+                </div>
+                
+                <div id="shipping-info">
+                    <hr>
+                    <p>Enter your seat info listed on your ticket:</p>
+                    <hr>
+                    <div class="form-field">
+                        <select class="form-control" id="section"></select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <select class="form-control" id="row"></select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="seat"></select>
+                    </div>
+                </div>
+                <hr>
+                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+            </form>
+        </div>
+        <br>
+    </div>
+        <div class="box-element hidden" id="payment-info">
+            <small>Paypal</small>
+        </div>
+        <div class="box-element hidden" id="apple-pay">
+            <small>Apple Pay</small>
+        </div>
+
+    <div class="col-lg-6">
+        <div class="box-element">
+            {% for item in items %}
+            <div class="cart-row">
+                <div style="flex: 2"><img class="row-image" src="{{ item.menu_item.image.url }}"></div>
+                <div style="flex: 2">{{item.menu_item.name}}</div>
+                <div style="flex: 1">{{item.menu_item.price}}</div>
+                <div style="flex: 1">
+                    <p class="quantity">{{order.get_cart_items}}</p>
+                </div>
+                <div style="flex: 1">${{order.get_cart_total}}</div>
+                {% empty %}
+                <p>You have not added anything to the cart.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}

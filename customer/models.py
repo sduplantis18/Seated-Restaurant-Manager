@@ -14,9 +14,9 @@ class Order(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS) 
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
-    section = models.ForeignKey(Section, null=False ,on_delete=CASCADE)
-    row = models.ForeignKey(Row, null=False,on_delete=CASCADE)
-    seat = models.ForeignKey(Seat, null=False, on_delete=CASCADE)
+    section = models.ForeignKey(Section, null=True ,on_delete=CASCADE)
+    row = models.ForeignKey(Row, null=True,on_delete=CASCADE)
+    seat = models.ForeignKey(Seat, null=True, on_delete=CASCADE)
     complete = models.BooleanField(default=False, null=True, blank=False)
     transaction_id = models.CharField(max_length=200, null=True)
 

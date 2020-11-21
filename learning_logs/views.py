@@ -1,4 +1,3 @@
-import json
 from django.contrib.auth import login
 from django.http.response import JsonResponse
 from users.decorators import manager_required
@@ -229,28 +228,4 @@ def edit_menu_item(request, menu_item_id):
 
 
 
-def updateItem(request):
-    data = json.loads(request.data)
-    menuitemId = data['menuitemId']
-    action = data['action']
-
-    print('Action:', action)
-    print('menuItem:', menuitemId)
-
-    customer = request.user.is_customer
-    menu_item = Menu_item.objects.get(id=menuitemId)
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
-    
-    
-    return JsonResponse('Item was added', safe=False)
-
-def cart(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-    else:
-        items = []
-    context = {}
-    return render(request, 'custommer/cart.html', context)
 

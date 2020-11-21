@@ -19,7 +19,7 @@ window.onload = function() {
 function updateUserOrder(menuitemId, action){
     console.log('User is logged in, sending data...')
 
-    var url = '/update_item/'
+    var url = '/customer/update_item/'
 
     fetch(url, {
         method: 'POST',
