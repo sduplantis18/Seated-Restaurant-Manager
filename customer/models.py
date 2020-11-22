@@ -1,6 +1,6 @@
 from django.db.models.deletion import CASCADE, SET_DEFAULT
 from django.db.models.fields import NullBooleanField
-from learning_logs.models import Menu_item, Row, Seat, Section
+from learning_logs.models import Entry, Menu_item, Topic
 from users.models import Customer
 from django.db import models
 
@@ -14,11 +14,10 @@ class Order(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS) 
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
-    section = models.ForeignKey(Section, null=True ,on_delete=CASCADE)
-    row = models.ForeignKey(Row, null=True,on_delete=CASCADE)
-    seat = models.ForeignKey(Seat, null=True, on_delete=CASCADE)
     complete = models.BooleanField(default=False, null=True, blank=False)
     transaction_id = models.CharField(max_length=200, null=True)
+    entry = models.ForeignKey(Entry, on_delete=models.CASCADE, null=True)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return str(self.id)
@@ -34,6 +33,16 @@ class Order(models.Model):
         orderitems = self.orderitem_set.all()
         total = sum([item.quantity for item in orderitems])
         return total
+
+    @property
+    #defines whether or not delivery is reuired or if it will be a pickup order
+    def delivery(self):
+        delivery = False
+        orderitems = self.orderitem_set.all()
+        for i in orderitems:
+            if i.menu_item.delivery == False:
+                delivery = False
+        return delivery
 
 
 class OrderItem(models.Model):
@@ -52,15 +61,5 @@ class OrderItem(models.Model):
     
 
 
-class ShippingAddress(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    section = models.ForeignKey(Section, on_delete=models.SET_NULL, null=True)
-    row = models.ForeignKey(Row, on_delete=models.SET_NULL, null=True)
-    seat = models.ForeignKey(Seat, on_delete=models.SET_NULL, null=True)
-    data_added = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.address
 
 

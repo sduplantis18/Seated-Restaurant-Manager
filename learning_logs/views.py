@@ -11,6 +11,9 @@ from .models import Topic, Entry, Menu, Menu_item
 from .forms import MenuForm, MenuItemForm, TopicForm, EntryForm
 
 # Create your views here.
+
+
+#render the homepage
 def index(request):
     #query all topics in the db
     topics = Topic.objects.all()

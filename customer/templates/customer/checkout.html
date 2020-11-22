@@ -24,15 +24,25 @@
                     <hr>
                     <p>Enter your seat info listed on your ticket:</p>
                     <hr>
+
                     <div class="form-field">
-                        <select class="form-control" id="section"></select>
+                        <select class="form-control" id="section">
+                            <option disabled="true" selected>-- Select Section</option>
+                            <option></option>
+                        </select>   
                     </div>
                     <br>
                     <div class="form-group">
-                        <select class="form-control" id="row"></select>
+                        <select class="form-control" id="row">
+                            <option disabled="true" selected>-- Select Row</option>
+                        </select>
+                        
                     </div>
                     <div class="form-group">
-                        <select class="form-control" id="seat"></select>
+                        <select class="form-control" id="seat">
+                            <option disabled="true" selected>-- Select Seat</option>
+                        </select>
+                        
                     </div>
                 </div>
                 <hr>
@@ -42,7 +52,8 @@
         <br>
     </div>
         <div class="box-element hidden" id="payment-info">
-            <small>Paypal</small>
+            <small>Paypal Options</small>
+            <button id="make-payment">Make payment</button>
         </div>
         <div class="box-element hidden" id="apple-pay">
             <small>Apple Pay</small>
@@ -66,5 +77,84 @@
         </div>
     </div>
 </div>
+   
+<script type="text/javascript">
+    var shipping = '{{order.delivery}}'
+    var total = '{{order.get_cart_total}}'
+
+    if(delivery == 'False'){
+        document.getElementById('shipping-info').innerHTML = ''
+    }
+
+    if (user != 'AnonymousUser'){
+        //hide the user-info wrapper if the user is logged in 
+        document.getElementById('user-info').innerHTML = ''
+    }
+
+    if (delivery == 'False'&& user != 'AnonymousUser'){
+        //hide entire form if user is logged in and delivery is false
+        document.getElementById('form-wrapper').classList.add('hidden');
+        //Show payment info if logged in user wants to buy an item that can be picked up instead
+        document.getElementById('payment-info').classList.remove('hidden');
+    }
+
+    var form = document.getElementById('form')
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault()
+        console.log('form submitted')
+        document.getElementById('form-button').classList.add('hidden')
+        document.getElementById('payment-info').classList.remove('hidden')
+        })
+
+        document.getElementById('make-payment').addEventListener('click', function(e){
+            submitFormData()
+        })
     
+        function submitFormData(){
+            console.log('Payment button clicked')
+
+            var userFormData = {
+                'name':null,
+                'email':null,
+                'total':total,
+            }
+
+            var seatLocation = {
+                'section':null,
+                'row':null,
+                'seat':null,
+            }
+
+            if(delivery != 'False'){
+                seatLocation.section = form.section.value
+                seatLocation.row = form.row.value
+                seatLocation.seat = form.seat.value
+            }
+
+            if(user == 'AnonymousUser'){
+                userFormData.name = form.name.value
+                userFormData.email = form.email.value
+            }
+
+            var url = '/process_order/'
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json',
+                    'X-CSRFToken':csrftoken,
+                },
+                body: JSON.stringify({'form':userFormData, 'shipping':shippingInfo})
+            })
+            .then((response) => response.JSON())
+            .then((data) => {
+                console.log('sucess:', data);
+                alert('Transaction completed');
+                window.location.href = "{% url 'index' %}"
+            })
+
+        }
+
+</script>
+
 {% endblock content %}

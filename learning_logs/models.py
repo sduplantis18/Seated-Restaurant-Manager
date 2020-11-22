@@ -1,6 +1,9 @@
+from customer.models import Order
+from users.models import Customer
 from django.db import models
 from django.conf import settings
 from django.db.models.fields import CharField
+from django.forms import ModelChoiceField
 
 User = settings.AUTH_USER_MODEL
 
@@ -21,27 +24,20 @@ class Topic(models.Model):
         """Return a string representation of the model"""
         return self.text
 
+class Seatlocation(models.Model):
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    section = models.CharField(max_length=25)
+    row = models.CharField(max_length=10)
+    seat =  models.IntegerField()
 
-class Section(models.Model):
-    name = models.CharField(max_length=50)
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-class Row(models.Model):
-    name = models.CharField(max_length=10)
-    section = models.ForeignKey(Section, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-class Seat(models.Model):
-    number = models.IntegerField()
-    row = models.ForeignKey(Row, on_delete=models.CASCADE)
+    class SectionModelChoieceField(ModelChoiceField):
+        def label_from_instance(self, obj):
+            return obj.section
 
     def __str__(self):
-        return str(self.number)
+        return self.section
 
 class Entry(models.Model):
     """A restuarant"""
@@ -80,6 +76,7 @@ class Menu_item(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, default=None, blank=True, null=True)
     image = models.ImageField(null=True, blank=True, upload_to='menu_items')
     quantity = models.IntegerField(default=0)
+    delivery = models.BooleanField(default=True, null=False, blank=False)
 
     class Meta:
         verbose_name_plural = 'menu items'

@@ -26,3 +26,5 @@ class MenuItemForm(forms.ModelForm):
         model = Menu_item
         fields = ['title', 'price', 'image', 'quantity']
         labels = {'title': 'Menu Item', 'price':'price', 'image':'Thumbnail', 'quantity':'quantitiy'}
+
+

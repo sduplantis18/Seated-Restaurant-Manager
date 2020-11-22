@@ -32,3 +32,5 @@ def manager_required(function=None, name=REDIRECT_FIELD_NAME, login_url='login')
     if function:
         return actual_decorator(function)
     return actual_decorator
+
+

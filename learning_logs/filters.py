@@ -8,5 +8,5 @@ class TopicFilter(django_filters.FilterSet):
     class Meta:
         model = Topic
         fields = {
-            'zip_code': ['exact']
+            'city': ['contains']
         }
