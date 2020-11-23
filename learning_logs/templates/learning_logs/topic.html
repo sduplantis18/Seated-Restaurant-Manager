@@ -4,9 +4,13 @@
 {% load static %}
 
 {% block page_header %}
-<h3>{{ topic }}</h3>
-<img src="{{ topic.image.url }}" class="img-thumbnail">
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <img src="{{ topic.image.url }}" class="img-fluid"/>
+        </div>
+    </div>
+</div>
 {% endblock page_header %}
 
 {% block content %}
@@ -16,27 +20,29 @@
     </p>
     {% else %}
     {% endif %}
-
     
-    {% for entry in entries %}
-    <div class="card mb-4">
-        <h4 class="card-header">
-            <small><a href="{% url 'learning_logs:entry' entry.id %}">{{ entry }}</a></small>
-        {% if request.user.is_manager %}
-            - <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit</a></small>
-        {% else %}
-        ...
-        {% endif %}
-        </h4>
-        <div class="card-body">
-            {{ entry.text|linebreaks }}
-            <img src="{{ entry.image.url }}" class="img-thumbnail">
+    
+    <section>
+    <div class="arena-row">
+        {% for entry in entries %}
+        <div class="card" style="width: 16rem;">
+            <img src="{{ entry.image.url }}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <small><a href="{% url 'learning_logs:entry' entry.id %}">{{ entry }}</a></small>
+                {% if request.user.is_manager %}
+                    - <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit</a></small>
+                {% else %}
+                {% endif %}
+                </h5>
+            </div>
         </div>
-
+        {% empty %}
+            <li>There are no restuarants in this venue yet.</li>
+        {% endfor %}  
     </div>
-    {% empty %}
-        <li>There are no restuarants in this venue yet.</li>
-    {% endfor %}    
+    </section>
+      
     
 
 {% endblock content %}

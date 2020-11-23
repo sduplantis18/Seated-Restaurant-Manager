@@ -17,8 +17,6 @@ class customer_register(CreateView):
     template_name = '../templates/registration/customer_register.html'
     success_url = '/'
 
-
-
     def validation(self, form):
         user=form.save()
         login(self.request, user)

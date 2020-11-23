@@ -52,6 +52,16 @@ def processOrder(request):
         if total == order.get_cart_total:
             order.complete = True
         order.save()
+
+        if order.delivery == True:
+            Seatlocation.objects.create(
+                customer = customer,
+                order = order,
+                section = data['shipping']['section'],
+                row = data['shipping']['row'],
+                seat = data['shipping']['seat'],
+            )
+
     else:
         print('User is not logged in')
 

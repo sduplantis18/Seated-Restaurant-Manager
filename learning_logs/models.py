@@ -1,5 +1,3 @@
-from customer.models import Order
-from users.models import Customer
 from django.db import models
 from django.conf import settings
 from django.db.models.fields import CharField
@@ -24,20 +22,6 @@ class Topic(models.Model):
         """Return a string representation of the model"""
         return self.text
 
-class Seatlocation(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
-    section = models.CharField(max_length=25)
-    row = models.CharField(max_length=10)
-    seat =  models.IntegerField()
-
-    class SectionModelChoieceField(ModelChoiceField):
-        def label_from_instance(self, obj):
-            return obj.section
-
-    def __str__(self):
-        return self.section
 
 class Entry(models.Model):
     """A restuarant"""

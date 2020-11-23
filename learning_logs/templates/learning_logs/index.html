@@ -14,7 +14,6 @@
         <button class="btn btn-primary" type="submit">Search</button>
         </form>
         </header>
-        
     </section>
 
 {% endblock page_header %}
@@ -22,22 +21,25 @@
 
 
 {% block content %}
-    {% for topic in topics %}
     
     <section>
-    <div class="card mb-4">
-        <h4 class="card-header"><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a> {{topic.city}}, {{topic.State}} 
-        {% if request.user.is_manager %}   
-            - <a class="btn btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a></h4>
-        {% else %}
-        ...
-        {% endif %}
-        <div class="card-body">
-            <img src="{{ topic.image.url }}" class="img-thumbnail">
-        </div>
-    </div>  
-    {% empty %}
-        <h3>No venues have been added yet</h3>
-    {% endfor %}
+        <div class="arena-row">
+            {% for topic in topics %}
+            <div class="card" style="width: 16rem;">
+                <img src="{{ topic.image.url }}" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a> 
+                {% if request.user.is_manager %}   
+                    - <a class="btn btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a></h5>
+                {% else %}
+                {% endif %}  
+                <p class="card-text">Located in: {{topic.city}}, {{topic.State}}</p>
+            </div>
+            </div>
+            {% empty %}
+                <h3>No venues have been added yet</h3>
+            {% endfor %} 
+        </div> 
+    
     </section>
 {% endblock content %}

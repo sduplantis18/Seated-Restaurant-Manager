@@ -1,6 +1,6 @@
 from django.db.models.deletion import CASCADE, SET_DEFAULT
 from django.db.models.fields import NullBooleanField
-from learning_logs.models import Entry, Menu_item, Topic
+from learning_logs.models import Entry, Topic, Menu_item
 from users.models import Customer
 from django.db import models
 
@@ -61,5 +61,13 @@ class OrderItem(models.Model):
     
 
 
+class Seatlocation(models.Model):
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    section = models.CharField(max_length=25)
+    row = models.CharField(max_length=10)
+    seat =  models.IntegerField()
 
-
+    def __str__(self):
+        return self.section

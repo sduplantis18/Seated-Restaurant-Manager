@@ -3,6 +3,7 @@
 {% load bootstrap4 %}
 
 {% block page_header %}
+
 {% endblock page_header %}
 
 {% block content %}
@@ -22,17 +23,23 @@
                     Checkout</a>
                 </th>
             </tr>
-            
         </table>
         </div>
     </div>
 </div>
 
 <div class="box-element">
+    <div class="cart-row">
+        <div style="flex: 2;"></div>
+        <div style="flex: 2;"><strong>Item</strong></div>
+        <div style="flex: 1;"><strong>Price</strong></div>
+        <div style="flex: 1;"><strong>Quantity</strong></div>
+        <div style="flex: 1;"><strong>Total</strong></div>
+    </div>
     {% for item in items %}
     <div class="cart-row">
         <div style="flex: 2"><img class="row-image" src="{{ item.menu_item.image.url }}"></div>
-        <div style="flex: 2">{{item.menu_item.name}}</div>
+        <div style="flex: 2;">{{item.menu_item.title}}</div>
         <div style="flex: 1">{{item.menu_item.price}}</div>
         <div style="flex: 1">
             <p class="quantity">{{item.quantity}}</p>
