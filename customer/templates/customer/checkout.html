@@ -24,25 +24,15 @@
                     <hr>
                     <p>Enter your seat info listed on your ticket:</p>
                     <hr>
-
                     <div class="form-field">
-                        <select class="form-control" id="section">
-                            <option disabled="true" selected>-- Select Section</option>
-                            <option></option>
-                        </select>   
+                        <input required class="form-control" type="text" name="section" placeholder="Section.."> 
                     </div>
                     <br>
-                    <div class="form-group">
-                        <select class="form-control" id="row">
-                            <option disabled="true" selected>-- Select Row</option>
-                        </select>
-                        
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="row" placeholder="Row..">
                     </div>
-                    <div class="form-group">
-                        <select class="form-control" id="seat">
-                            <option disabled="true" selected>-- Select Seat</option>
-                        </select>
-                        
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="seat" placeholder="Seat..">
                     </div>
                 </div>
                 <hr>
@@ -51,6 +41,8 @@
         </div>
         <br>
     </div>
+
+    <div class="col-lg-6">
         <div class="box-element hidden" id="payment-info">
             <small>Paypal Options</small>
             <button id="make-payment">Make payment</button>
@@ -58,7 +50,8 @@
         <div class="box-element hidden" id="apple-pay">
             <small>Apple Pay</small>
         </div>
-
+    </div>
+        
     <div class="col-lg-6">
         <div class="box-element">
             <div class="cart-row">
@@ -77,16 +70,17 @@
                     <p class="quantity">{{order.get_cart_items}}</p>
                 </div>
                 <div style="flex: 1">${{order.get_cart_total}}</div>
-                {% empty %}
-                <p>You have not added anything to the cart.</p>
+                
             </div>
+            {% empty %}
+                <p>You have not added anything to the cart.</p>
             {% endfor %}
         </div>
     </div>
 </div>
    
 <script type="text/javascript">
-    var shipping = '{{order.delivery}}'
+    var delivery = '{{order.delivery}}'
     var total = '{{order.get_cart_total}}'
 
     if(delivery == 'False'){
@@ -144,20 +138,20 @@
                 userFormData.email = form.email.value
             }
 
-            var url = '/process_order/'
+            var url = "{% url 'customer:process_order' %}"
             fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type':'application/json',
                     'X-CSRFToken':csrftoken,
                 },
-                body: JSON.stringify({'form':userFormData, 'shipping':shippingInfo})
+                body: JSON.stringify({'form':userFormData, 'delivery':seatLocation})
             })
-            .then((response) => response.JSON())
+            .then((response) => response.json())
             .then((data) => {
                 console.log('sucess:', data);
                 alert('Transaction completed');
-                window.location.href = "{% url 'customer:home' %}"
+                window.location.href = "{% url 'customer:order_complete' %}"
             })
 
         }

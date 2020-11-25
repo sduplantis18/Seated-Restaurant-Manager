@@ -37,7 +37,7 @@ class Order(models.Model):
     @property
     #defines whether or not delivery is reuired or if it will be a pickup order
     def delivery(self):
-        delivery = False
+        delivery = True
         orderitems = self.orderitem_set.all()
         for i in orderitems:
             if i.menu_item.delivery == False:

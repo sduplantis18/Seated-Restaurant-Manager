@@ -36,6 +36,7 @@
         <div style="flex: 1;"><strong>Quantity</strong></div>
         <div style="flex: 1;"><strong>Total</strong></div>
     </div>
+
     {% for item in items %}
     <div class="cart-row">
         <div style="flex: 2"><img class="row-image" src="{{ item.menu_item.image.url }}"></div>
@@ -45,9 +46,9 @@
             <p class="quantity">{{item.quantity}}</p>
         </div>
         <div style="flex: 1">${{item.get_total}}</div>
-        {% empty %}
-        <p>You have not added anything to the cart.</p>
     </div>
+    {% empty %}
+        <p>You have not added anything to the cart.</p>
     {% endfor %}
 </div>
     

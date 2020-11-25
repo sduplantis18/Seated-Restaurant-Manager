@@ -11,7 +11,7 @@
             <!-- Search form -->
         <form method="get">
             {{myFilter.form}}
-        <button class="btn btn-primary" type="submit">Search</button>
+        <button class="btn btn-primary btn-sm" type="submit">Search</button>
         </form>
         </header>
     </section>
@@ -26,14 +26,16 @@
         <div class="arena-row">
             {% for topic in topics %}
             <div class="card" style="width: 16rem;">
+                <a class="card-block stretched-link text-decoration-none" href="{% url 'learning_logs:topic' topic.id %}">
                 <img src="{{ topic.image.url }}" class="card-img-top">
-                <div class="card-body">
-                <h5 class="card-title"><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a> 
+                <div class="card-body" style="padding: 10px;">
+                <h5 class="card-title">{{ topic }}</a> 
                 {% if request.user.is_manager %}   
-                    - <a class="btn btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a></h5>
+                    - <a class="btn btn-danger btn-sm" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a></h5>
                 {% else %}
                 {% endif %}  
-                <p class="card-text">Located in: {{topic.city}}, {{topic.State}}</p>
+                <p class="card-text">{{topic.city}}, {{topic.State}}</p>
+                </a>
             </div>
             </div>
             {% empty %}

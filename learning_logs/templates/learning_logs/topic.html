@@ -4,7 +4,7 @@
 {% load static %}
 
 {% block page_header %}
-<div class="container-fluid">
+<div class="container-fluid" style="padding: 0; height: 30%;">
     <div class="row">
         <div class="col-md-12">
             <img src="{{ topic.image.url }}" class="img-fluid"/>
@@ -26,6 +26,7 @@
     <div class="arena-row">
         {% for entry in entries %}
         <div class="card" style="width: 16rem;">
+            <a class="card-block stretched-link text-decoration-none" href="{% url 'learning_logs:entry' entry.id %}">
             <img src="{{ entry.image.url }}" class="card-img-top">
             <div class="card-body">
                 <h5 class="card-title">
@@ -36,6 +37,7 @@
                 {% endif %}
                 </h5>
             </div>
+            </a>
         </div>
         {% empty %}
             <li>There are no restuarants in this venue yet.</li>

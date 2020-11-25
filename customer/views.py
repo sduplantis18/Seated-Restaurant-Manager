@@ -44,7 +44,7 @@ def processOrder(request):
     data = json.loads(request.body)
    
     if request.user.is_authenticated:
-        customer = request.user.is_authenticated
+        customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete = False)
         total = data['form']['total']
         order.transaction_id = transaction_id
@@ -57,9 +57,9 @@ def processOrder(request):
             Seatlocation.objects.create(
                 customer = customer,
                 order = order,
-                section = data['shipping']['section'],
-                row = data['shipping']['row'],
-                seat = data['shipping']['seat'],
+                section = data['delivery']['section'],
+                row = data['delivery']['row'],
+                seat = data['delivery']['seat'],
             )
 
     else:
@@ -101,3 +101,7 @@ def checkout(request):
 
 def select_seat(request):
     return render(request, '../templates/customer/select_seat.html')
+
+
+def order_complete(request):
+    return render(request, '../templates/customer/order_complete.html')
