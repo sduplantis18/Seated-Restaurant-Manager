@@ -5,31 +5,36 @@
 {% load static %}
 
 {% block page_header %}
-<h1>Venues</h1>
-{% if request.user.is_staff %}
-<h3><a href="{% url 'learning_logs:new_topic' %}">Add Venue</a></h3>
-{% else %}
-{% endif %}
+<div class="container">
+    {% if request.user.is_staff %}
+    <h3><a href="{% url 'learning_logs:new_topic' %}">Add Venue</a></h3>
+    {% else %}
+    {% endif %}
+</div>
 {% endblock page_header %}
 
 {% block content %}
-    {% for topic in topics %}
+<section>
     <div class="arena-row">
-        <div class="card mb-4">
-            <h4 class="card-header"><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a> {{topic.city}}, {{topic.State}} 
-            {% if request.user.is_staff %}    
-                - <a class="btn btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a></h4>
+        {% for topic in topics %}
+        <div class="card" style="width: 16rem;">
+            <a class="card-block stretched-link text-decoration-none" href="{% url 'learning_logs:topic' topic.id %}">
+            <img src="{{ topic.image.url }}" class="card-img-top">
+            <div class="card-body" style="padding: 10px;">
+            <h5 class="card-title">{{ topic }}</a> 
+            {% if request.user.is_manager %}   
+                - <a class="btn btn-danger btn-sm" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a></h5>
             {% else %}
-            ...
-    
-            {% endif %}
-            <div class="card-body">
-                <img src="{{ topic.image.url }}" class="img-thumbnail">
-            </div>
-        </div>  
+            {% endif %}  
+            <p class="card-text">{{topic.city}}, {{topic.State}}</p>
+            </a>
+        </div>
+        </div>
         {% empty %}
             <h3>No venues have been added yet</h3>
-        {% endfor %}
-    </div>
+        {% endfor %} 
+    </div> 
+
+</section>
     
 {% endblock content %}

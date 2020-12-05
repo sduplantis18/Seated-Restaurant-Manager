@@ -21,7 +21,9 @@ urlpatterns = [
     # display select a seat 
     path('select_seat/', views.select_seat, name="select_seat"),
     # Display completed order
-    path('order_complete', views.order_complete, name='order_complete'),
+    path('order_complete/', views.order_complete, name='order_complete'),
+    # track order
+    path('orders/', views.orders, name='orders'),
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

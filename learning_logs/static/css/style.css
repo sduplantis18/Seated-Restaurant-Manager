@@ -77,6 +77,8 @@ div.col-md-12 {
 	padding: 5px;
 }
 
+
+
 .cart-row{
 	display: flex;
     align-items: flex-stretch;
@@ -89,7 +91,7 @@ div.col-md-12 {
 .arena-row{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
@@ -104,6 +106,8 @@ div.col-md-12 {
 
 .arena-row .card{
     margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
 
 }
 
@@ -144,6 +148,21 @@ img.card-img-top {
 	opacity: .6;
 }
 
+.arena-search label {
+    display: none;
+}
+
+.arena-search input {
+    vertical-align: bottom;
+}
+
+
+.bgimage {
+    width:100%;
+    height:300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
 .hidden{
 	display: none!important;
@@ -151,6 +170,11 @@ img.card-img-top {
 
 .hero-header {
     text-align: center;
+    width: 100%;
+}
+
+.hero-iamge {
+    width: 100%;
 }
 
 
@@ -178,4 +202,36 @@ img.card-img-top {
         padding-bottom: 10px;
         margin-bottom: 20px;
     }
+
+    .bgimage {
+        width:100%;
+        height:200px;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+    .row-image {
+        width: 60px;
+    }
+    
   }
+
+
+  @media screen and (min-width: 700px) {
+      .bgimage {
+        width:100%;
+        height:300px;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+  }
+
+  @media screen and (min-width: 900px) {
+    .bgimage {
+      width:100%;
+      height: 400px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      overflow: auto;
+    }
+}

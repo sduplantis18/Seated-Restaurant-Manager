@@ -2,7 +2,10 @@
 {% load bootstrap4 %}
 
 {% block page_header %}
-<h1><a href="{% url 'learning_logs:entry' entry.id %}">..{{ entry }}</a></h1>
+<div class="container">
+    <h3><a href="{% url 'learning_logs:topic' entry.topic.id %}">{{ entry.topic }}</a></h3>
+</div>
+
 {% endblock page_header %}
 
 {% block content %}

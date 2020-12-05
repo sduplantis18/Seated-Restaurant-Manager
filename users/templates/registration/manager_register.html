@@ -2,14 +2,16 @@
 {% load bootstrap4 %}
 {% block content %}
 
+<div class="container">
+    <form method="POST" action="{% url 'users:manager_register' %}">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button name="submit" class="btn btn-primary">Register</button>
+        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
+        {% endbuttons %}
+    </form>
+</div>
 
-<form method="POST" action="{% url 'users:manager_register' %}">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% buttons %}
-    <button name="submit" class="btn btn-primary">Register</button>
-    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
-    {% endbuttons %}
-</form>
 
 {% endblock content %}

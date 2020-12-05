@@ -7,7 +7,7 @@ from django.db import models
 # Create your models here.
 class Order(models.Model):
     STATUS = (
-        ('Pending', 'Pending'),
+        ('Received', 'Recieved'),
         ('Out for delivery', 'Out for delivery'),
         ('Delivered','Delivered')
     )

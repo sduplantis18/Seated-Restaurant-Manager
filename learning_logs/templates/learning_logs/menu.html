@@ -3,7 +3,10 @@
 {% load bootstrap4 %}
 
 {% block page_header %}
-<h3><p>{{ menu }}</p></h3>
+<div class="container">
+    <h3><a href="{% url 'learning_logs:entry' menu.entry.id %}">{{ menu.entry }}</a></h3>
+</div>
+
 {% if request.user.is_manager %}
     <p>
         <a href="{% url 'learning_logs:new_menu_item' menu.id %}">Add Menu Item</a>

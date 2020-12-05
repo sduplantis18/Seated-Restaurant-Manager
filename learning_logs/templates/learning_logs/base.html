@@ -57,10 +57,13 @@
         <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <span class="navbar-text"}>Hello, {{ user.username }}.</span>
+                <span class="navbar-text"}>Hello, {{ user.username }}</span>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'customer:cart' %}" ><img src="{% static '/bag-plus-fill.svg' %}" class="cart-icon"></a>
+                <a class="nav-link" href="{% url 'customer:cart' %}" > Cart</a>
+            </li>
+            <li>
+                <a class="nav-link" href="{% url 'customer:orders' %}">Orders</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'users:logout_view' %}">Logout</a>
@@ -83,12 +86,19 @@
     </div>
     </nav>
 
-<div class="container-fluid">
-    <div class="pb-2 mb-2">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container-fluid">
         {% block page_header %}
         {% endblock page_header %}
     </div>
-</div>
+        
+
 
     <div class="container">
         {% block content %}

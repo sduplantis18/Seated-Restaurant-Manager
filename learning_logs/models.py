@@ -30,6 +30,8 @@ class Entry(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(null=True, blank=True, upload_to='menu_media')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=200, null=True)
+    section = models.CharField(max_length=50, null=True)
 
     class Meta:
         verbose_name_plural = 'entries'
