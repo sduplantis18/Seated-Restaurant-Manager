@@ -68,7 +68,9 @@ div.col-md-12 {
 }
 
 .row-image{
-	width: 100px;
+    height: 100px;
+    padding: 5px;
+
 }
 
 .form-field{
@@ -76,7 +78,6 @@ div.col-md-12 {
 	display: inline-block;
 	padding: 5px;
 }
-
 
 
 .cart-row{
@@ -99,7 +100,7 @@ div.col-md-12 {
 .menu-row{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
@@ -113,7 +114,8 @@ div.col-md-12 {
 
 .menu-row .card{
     margin-bottom: 20px;
-
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .arena-row .card:hover {
@@ -173,8 +175,11 @@ img.card-img-top {
     width: 100%;
 }
 
-.hero-iamge {
+.hero img {
     width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
 }
 
 
@@ -209,10 +214,6 @@ img.card-img-top {
         background-repeat: no-repeat;
         background-size: cover;
       }
-
-    .row-image {
-        width: 60px;
-    }
     
   }
 

@@ -16,7 +16,6 @@
         </form>
         </header>
     </section>
-
 {% endblock page_header %}
 
 
@@ -31,10 +30,6 @@
                 <img src="{{ topic.image.url }}" class="card-img-top">
                 <div class="card-body" style="padding: 10px;">
                 <h5 class="card-title">{{ topic }}</a> 
-                {% if request.user.is_manager %}   
-                    - <a class="btn btn-danger btn-sm" href="{% url 'learning_logs:delete_topic' topic.id %}" role="button">Delete</a></h5>
-                {% else %}
-                {% endif %}  
                 <p class="card-text">{{topic.city}}, {{topic.State}}</p>
                 </a>
             </div>

@@ -22,12 +22,14 @@
         {% for menu_item in menu_items %}
         <div class="card" style="width: 18rem;">
             <div class="card-horizontal">
-                    <img src="{{ menu_item.image.url }}" class="row-image">
-                <div class="card-body">
-                    <small>{{ menu_item }}</small>
+                <div class="card-body" style="padding: .75rem;">
+                    <small style="font-weight: 600;">{{ menu_item }}:</small>
+                    <br>
+                    <small>Test Description for this item.</small>
                 </div>
+                <img src="{{ menu_item.image.url }}" class="row-image">
             </div>
-            <div class="card-footer">
+            <div class="card-footer" style="border: none; background-color: white; text-align: left; padding: .75rem;">
                 {% if request.user.is_manager %}    
                         - <small><a href="{% url 'learning_logs:edit_menu_item' menu_item.id %}">Edit</a></small>
                     {% else %}
@@ -40,5 +42,6 @@
             <p>There are no items added to this menu yet.</p>
         {% endfor %} 
     </div> 
+    
 
 {% endblock content %}
