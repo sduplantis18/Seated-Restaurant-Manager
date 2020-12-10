@@ -40,16 +40,16 @@ def login_request(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+            user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request,user)
+                login(request, user)
                 messages.success(request, "Welcome")
                 return redirect('learning_logs:index')
             else: 
-                messages.error(request, "Invalid username or password")
+                messages.error(request, "Email or Password is incorrect.")
 
         else: 
-            messages.error(request, "Invalid username or password")
+            messages.error(request, "Invalid email or password")
     # Display the login page
     return render(request, '../templates/registration/login.html',context={'form':AuthenticationForm()})
 

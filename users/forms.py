@@ -5,6 +5,7 @@ from django.db.models import manager
 from .models import Customer, User, Manager, Runner
 
 class CustomerSingupForm(UserCreationForm):
+    email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     phone_number = forms.CharField(required=True)
@@ -16,6 +17,7 @@ class CustomerSingupForm(UserCreationForm):
     def save(self):
         user = super().save(commit=False)
         user.is_customer = True
+        user.email = self.cleaned_data.get('email')
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')
         user.save()

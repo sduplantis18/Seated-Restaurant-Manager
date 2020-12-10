@@ -84,9 +84,13 @@ def processOrder(request):
 #Display all items in a cart for the logged in customer
 def cart(request):
     if request.user.is_authenticated:
-        customer = request.user.customer
-        order = Order.objects.get(customer=customer, complete=False)
-        items = order.orderitem_set.all()
+        try:
+            customer = request.user.customer
+            order = Order.objects.get(customer=customer, complete=False)
+            items = order.orderitem_set.all()
+        except:
+            messages.warning(request, "You have not added anything to your cart yet.")
+            return render(request, '../templates/customer/cart.html')
     else:
         items = []
         order = {'get_cart_total':0, 'get_cart_items':0 ,'shipping':True}
