@@ -109,6 +109,7 @@ div.col-md-12 {
     margin-bottom: 20px;
     margin-right: 10px;
     margin-left: 10px;
+    width: 16rem;
 
 }
 
@@ -164,6 +165,7 @@ img.card-img-top {
     height:300px;
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 15px;
   }
 
 .hidden{
@@ -198,6 +200,10 @@ img.card-img-top {
     padding-right: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 @media only screen and (max-width: 600px) {
 
     .menu-row{
@@ -214,6 +220,17 @@ img.card-img-top {
         background-repeat: no-repeat;
         background-size: cover;
       }
+
+    div.container-fluid {
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .arena-row .card {
+        width: 16rem;
+        border-radius: 10px;
+    }
     
   }
 

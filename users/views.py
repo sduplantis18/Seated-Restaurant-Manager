@@ -20,7 +20,7 @@ class customer_register(CreateView):
     def validation(self, form):
         user=form.save()
         login(self.request, user)
-        return redirect('customer:home')
+        return redirect('users:login')
 
 class manager_register(CreateView):
     model = User
@@ -31,7 +31,7 @@ class manager_register(CreateView):
     def validation(self, form):
         user=form.save()
         login(self.request, user)
-        return redirect('learning_logs:topics')
+        return redirect('users:login')
 
 
 def login_request(request):

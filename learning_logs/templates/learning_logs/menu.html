@@ -42,6 +42,26 @@
             <p>There are no items added to this menu yet.</p>
         {% endfor %} 
     </div> 
+
+    <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="exampleModalLabel">Looks like you dont have an account.</h6>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <small>To create an order please create an account or sign into an existing account.. </small> 
+            </div>
+            <div class="modal-footer">
+              <a class="btn btn-light" href="{% url 'users:customer_register' %}">Create Account</a>
+              <a class="btn btn-primary" href="{% url 'users:login' %}">Sign in</a>
+            </div>
+          </div>
+        </div>
+    </div>
     
 
 {% endblock content %}

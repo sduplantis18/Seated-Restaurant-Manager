@@ -25,7 +25,7 @@
     <section>
     <div class="arena-row">
         {% for entry in entries %}
-        <div class="card" style="width: 16rem;">
+        <div class="card">
             <a class="card-block stretched-link text-decoration-none" href="{% url 'learning_logs:entry' entry.id %}">
             <img src="{{ entry.image.url }}" class="card-img-top">
             <div class="card-body">

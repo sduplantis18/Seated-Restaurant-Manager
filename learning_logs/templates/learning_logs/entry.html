@@ -16,16 +16,24 @@
 {% else %}
 
 {% endif %}
-
-    {% for menu in menus %}
-    <div class="card mb-4">
-        <h4 class="card-header">
-            <small><a href="{% url 'learning_logs:menu' menu.id %}">{{ menu }}</a></small>
-        </h4>
-    </div>
-    {% empty %}
+    
+    <div class="row">
+        {% for menu in menus %}
+        <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'learning_logs:menu' menu.id %}">{{ menu }}</a></h5>
+            <p class="card-text">Test Description</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        </div>
+        {% empty %}
         <li>There are no menus in this venue yet.</li>
-    {% endfor %}    
+        {% endfor %}    
+    </div>
+
+    
 
 {% endblock content %}
 

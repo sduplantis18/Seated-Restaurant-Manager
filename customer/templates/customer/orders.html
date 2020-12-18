@@ -3,7 +3,6 @@
 
 {% block page_header %}
 <div class="container">
-    <h3>Orders</h3>
 </div>
 
 {% endblock page_header %}
@@ -11,9 +10,10 @@
 
 
 <div class="container">
-    {% for ord in orders%}
-    <h1>{{ord.id}}</h1>
+    {% for order in orders %}
     <div class="col-lg-6">
+        <h3>{{order.topic}}, {{order.entry}} - Order #{{order.id}}</h3>
+        <h4>Status: {{order.status}}</h4>
         <div class="box-element">
             <div class="cart-row">
                 <div style="flex: 2;"></div>
@@ -24,7 +24,7 @@
             </div>
             {% for item in items %}
             <div class="cart-row">
-                {% if item.order.id == ord.id %}
+                {% if item.order.id == order.id %}
                 <div style="flex: 2"><img class="row-image" src="{{ item.menu_item.image.url }}"></div>
                 <div style="flex: 2">{{item.menu_item.title}}</div>
                 <div style="flex: 1">{{item.menu_item.price}}</div>
@@ -32,9 +32,9 @@
                     <p class="quantity">{{order.get_cart_items}}</p>
                 </div>
                 <div style="flex: 1">${{order.get_cart_total}}</div>
+                {% else %}
+                {% endif %}
             </div>
-            {% else %}
-            {% endif %}
             {% empty %}
             {% endfor %}
         </div>

@@ -9,7 +9,8 @@ window.onload = function() {
             console.log('menuitemId:', menuitemId, 'Action:', action)
             console.log('USER', user)
             if(user == 'AnonymousUser'){
-                console.log('Not Logged in')
+                console.log('Not Logged in');
+                $('#signup-modal').modal('show');
             }else{
                 updateUserOrder(menuitemId, action)
             }

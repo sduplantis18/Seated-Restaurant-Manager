@@ -18,13 +18,15 @@ class User(AbstractUser):
 
 
     def __str__(self):
-        return self. email
+        return self.email
 
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    phone_number = models.CharField(max_length=20)
+
     def __str__(self):
-        return self. user
+        return self.user.email
 
 
 class Manager(models.Model):
@@ -33,7 +35,7 @@ class Manager(models.Model):
 
 
     def __str__(self):
-        return self. user
+        return self.user.email
 
 
 class Runner(models.Model):
@@ -42,5 +44,5 @@ class Runner(models.Model):
     
 
     def __str__(self):
-        return self. user
+        return self.user.email
 

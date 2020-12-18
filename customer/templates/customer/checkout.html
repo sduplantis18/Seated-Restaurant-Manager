@@ -68,7 +68,7 @@
                 <div style="flex: 1">
                     <p class="quantity">{{order.get_cart_items}}</p>
                 </div>
-                <div style="flex: 1">${{order.get_cart_total}}</div>
+                <div style="flex: 1">${{order.get_cart_total|floatformat:2}}</div>
                 
             </div>
             {% empty %}
@@ -81,7 +81,7 @@
 <script src="https://www.paypal.com/sdk/js?client-id=AY8ft9OAAj2KU_aBIOQsp8SL--HJ6oCy4QYERjJ8pv2qI8AAaV7Q8dDWVlzE0V_51AixagM-ii_3e_Gi&currency=USD&disable-funding=credit"></script>
 
 <script>
-    var total = '{{order.get_cart_total}}'
+    var total = '{{order.get_cart_total|floatformat:2}}'
     // Render the PayPal button into #paypal-button-container
     paypal.Buttons({
 
@@ -181,6 +181,10 @@
             .then((data) => {
                 console.log('sucess:', data);
                 alert('Transaction completed');
+
+                cart = {}
+                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
                 window.location.href = "{% url 'customer:order_complete' %}"
             })
 
