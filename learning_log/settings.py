@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '!!1r)(q0tm5phjkw6(8$57@^l2bhtx3+)-cvg5&wy+)l@cs0qp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['seated.herokuapp.com', '127.0.0.1']
 
