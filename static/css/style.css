@@ -230,6 +230,14 @@ a {
         width: 16rem;
         border-radius: 10px;
     }
+
+    .hero {
+        height: 30vh;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-bottom: 50px;
+    }
     
   }
 
