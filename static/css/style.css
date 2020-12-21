@@ -88,6 +88,8 @@ div.col-md-12 {
 
 }
 
+/* arena row and card styles */
+
 .arena-row{
     display: flex;
     flex-wrap: wrap;
@@ -95,6 +97,47 @@ div.col-md-12 {
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
+
+.arena-row .card{
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 22rem;
+
+}
+
+.arena-row .card:hover {
+    border-width: medium;
+}
+
+.arena-row .card a {
+    color: hsl(0, 0%, 30%);
+}
+
+img.card-img-top {
+    height: 200px;
+    background-size: cover;
+}
+
+/* Restaurant Card Styles */
+
+.restaurant-row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+
+.restaurant-row .card{
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 22rem;
+}
+
+/* menu card styles */
 
 .menu-row{
     display: flex;
@@ -104,27 +147,15 @@ div.col-md-12 {
     margin-bottom: 20px;
 }
 
-.arena-row .card{
-    margin-bottom: 20px;
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 16rem;
-
-}
-
 .menu-row .card{
     margin-bottom: 20px;
     margin-right: 10px;
     margin-left: 10px;
+    width: 22rem;
 }
 
-.arena-row .card:hover {
-    border-width: medium;
-}
-
-img.card-img-top {
-    height: 133px;
-    background-size: cover;
+.card-foot {
+    padding-top: 15px;
 }
 
 .card-horizontal {
@@ -150,6 +181,8 @@ img.card-img-top {
 	opacity: .6;
 }
 
+/* arena search styling */
+
 .arena-search label {
     display: none;
 }
@@ -170,6 +203,8 @@ img.card-img-top {
 .hidden{
 	display: none!important;
 }
+
+/* here image banner styles */
 
 .hero-header {
     text-align: center;
@@ -203,6 +238,47 @@ a {
     text-decoration: none;
 }
 
+/* Styles for Menu Cards */
+.panel {
+    box-shadow: 0 2px 0 rgba(0,0,0,0.05);
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 24px;
+  }
+  
+  .panel-dark.panel-colorful {
+    background-color: #3b4146;
+    border-color: #3b4146;
+    color: #fff;
+  }
+  
+  .panel-danger.panel-colorful {
+    background-color: #f76c51;
+    border-color: #f76c51;
+    color: #fff;
+  }
+  
+  .panel-primary.panel-colorful {
+    background-color: #5fa2dd;
+    border-color: #5fa2dd;
+    color: #fff;
+  }
+  
+  .panel-info.panel-colorful {
+    background-color: #4ebcda;
+    border-color: #4ebcda;
+    color: #fff;
+  }
+  
+  .panel-body {
+    padding: 25px 20px;
+  }
+  
+  .panel hr {
+    border-color: rgba(0,0,0,0.1);
+  }
+
+
 @media only screen and (max-width: 600px) {
 
     .menu-row{
@@ -211,6 +287,11 @@ a {
         justify-content: center;
         padding-bottom: 10px;
         margin-bottom: 20px;
+    }
+
+    .menu-row .card{
+        margin-bottom: 20px;
+        width: 24rem;
     }
 
     .bgimage {
@@ -227,8 +308,7 @@ a {
     }
 
     .arena-row .card {
-        width: 16rem;
-        border-radius: 10px;
+        width: 22rem;
     }
 
     .hero {

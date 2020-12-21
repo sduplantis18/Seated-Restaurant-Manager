@@ -23,11 +23,11 @@
     
     
     <section>
-    <div class="arena-row">
+    <div class="restaurant-row">
         {% for entry in entries %}
         <div class="card">
             <a class="card-block stretched-link text-decoration-none" href="{% url 'learning_logs:entry' entry.id %}">
-            <img src="{{ entry.image.url }}" class="card-img-top">
+            <img src="{{ entry.image.url }}" class="card-img-top" style="height: 150px;">
             <div class="card-body">
                 <h5 class="card-title">
                     <small><a href="{% url 'learning_logs:entry' entry.id %}">{{ entry }}</a></small>

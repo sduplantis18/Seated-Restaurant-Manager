@@ -3,9 +3,10 @@
 {% load bootstrap4 %}
 
 {% block page_header %}
-<div class="container">
-    <h3><a href="{% url 'learning_logs:entry' menu.entry.id %}">{{ menu.entry }}</a></h3>
+<div class="container" style="margin-bottom: 50px;">
+    <h3><a href="{% url 'learning_logs:entry' menu.entry.id %}">< {{ menu.entry }}</a></h3>
 </div>
+    
 
 {% if request.user.is_manager %}
     <p>
@@ -17,26 +18,26 @@
 
 {% block content %} 
     
-    
+<div class="container"></div>
     <div class="menu-row">
         {% for menu_item in menu_items %}
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <div class="card-horizontal">
                 <div class="card-body" style="padding: .75rem;">
-                    <small style="font-weight: 600;">{{ menu_item }}:</small>
+                    <small style="font-weight: 600;">{{ menu_item }}</small>
                     <br>
-                    <small>Test Description for this item.</small>
-                </div>
-                <img src="{{ menu_item.image.url }}" class="row-image">
-            </div>
-            <div class="card-footer" style="border: none; background-color: white; text-align: left; padding: .75rem;">
-                {% if request.user.is_manager %}    
+                    <div class="card-foot">
+                        {% if request.user.is_manager %}    
                         - <small><a href="{% url 'learning_logs:edit_menu_item' menu_item.id %}">Edit</a></small>
                     {% else %}
                     <button data-menuitem={{menu_item.id}} data-action="add" class="btn btn-outline-primary btn-sm add-btn updatecart">Add to Cart</button>
                     <small>${{menu_item.price}}</small>
-                {% endif %}
+                    {% endif %}
+                    </div>
+                </div>
+                <img src="{{ menu_item.image.url }}" class="row-image">
             </div>
+            
         </div>
         {% empty %}
             <p>There are no items added to this menu yet.</p>

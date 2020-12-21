@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 
 {% block page_header %}
-<div class="container">
+<div class="container" style="margin-bottom: 50px; text-align: center;">
     <h3><a href="{% url 'learning_logs:topic' entry.topic.id %}">{{ entry.topic }}</a></h3>
 </div>
 
@@ -16,23 +16,28 @@
 {% else %}
 
 {% endif %}
-    
+ <div class="container">
     <div class="row">
         {% for menu in menus %}
-        <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-            <h5 class="card-title"><a href="{% url 'learning_logs:menu' menu.id %}">{{ menu }}</a></h5>
-            <p class="card-text">Test Description</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="panel panel-info panel-colorful">
+                <div class="panel-body text-center">
+                    <p class="text-uppercase mar-btm text-sm"><a style="color: #fff;;" href="{% url 'learning_logs:menu' menu.id %}">{{menu}}</a></p>
+                    <i class="bi bi-shop"></i>
+                    <hr>
+                    <p class="h2 text-thin"></p>
+                    <small><span class="text-semibold"><i class="bi bi-shop-window"></i></span></small>
+                </div>
             </div>
-        </div>
-        </div>
+        </div> 
         {% empty %}
         <li>There are no menus in this venue yet.</li>
         {% endfor %}    
     </div>
+ </div>   
+    
 
+     
     
 
 {% endblock content %}
