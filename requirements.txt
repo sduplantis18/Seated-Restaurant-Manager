@@ -1,6 +1,8 @@
 asgiref==3.2.10
 astroid==2.4.2
 beautifulsoup4==4.9.3
+boto3==1.16.41
+botocore==1.19.41
 certifi==2020.6.20
 chardet==3.0.4
 click==7.1.2
@@ -10,9 +12,11 @@ Django==3.1.2
 django-bootstrap4==2.3.1
 django-filter==2.4.0
 django-heroku==0.3.1
+django-storages==1.11
 gunicorn==20.0.4
 idna==2.10
 isort==5.6.4
+jmespath==0.10.0
 jsonconfig-tool==1.5
 keyring==21.4.0
 lazy-object-proxy==1.4.3
@@ -22,9 +26,11 @@ Pillow==8.0.1
 psycopg2==2.8.6
 pylint==2.6.0
 python-box==5.1.1
+python-dateutil==2.8.1
 pytz==2020.1
 pywin32-ctypes==0.2.0
 requests==2.24.0
+s3transfer==0.3.3
 six==1.15.0
 soupsieve==2.0.1
 sqlparse==0.4.1
