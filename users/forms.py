@@ -1,10 +1,14 @@
 from django import forms
+from allauth.account.forms import SignupForm
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
-from django.db.models import manager
-from .models import Customer, User, Manager, Runner
+from .models import Customer, User, Manager
 
-class CustomerSingupForm(UserCreationForm):
+
+
+
+# Customer singup using AllAuth "SignupForm"  
+class CustomerSingupForm(SignupForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
@@ -14,8 +18,8 @@ class CustomerSingupForm(UserCreationForm):
         model = User
 
     @transaction.atomic
-    def save(self):
-        user = super().save(commit=False)
+    def save(self, request):
+        user = super(CustomerSingupForm, self).save(request)
         user.is_customer = True
         user.email = self.cleaned_data.get('email')
         user.first_name = self.cleaned_data.get('first_name')
@@ -26,8 +30,8 @@ class CustomerSingupForm(UserCreationForm):
         customer.save()
         return user
 
-    
-class ManagerSingupForm(UserCreationForm):
+# Manager singup using AllAuth "SignupForm"   
+class ManagerSingupForm(SignupForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
@@ -37,8 +41,8 @@ class ManagerSingupForm(UserCreationForm):
         model = User
 
     @transaction.atomic
-    def save(self):
-        user = super().save(commit=False)
+    def save(self, request):
+        user = super(ManagerSingupForm, self).save(request)
         user.is_manager = True
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')

@@ -18,7 +18,7 @@
                 {% if form.errors %}
                 <p>Your username and password didn't match. Please try again.</p>
                 {% endif %}
-                <form method="POST" action="{% url 'users:login_request' %}" class="form">
+                <form method="POST" action="{% url 'account_login' %}" class="form">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}
