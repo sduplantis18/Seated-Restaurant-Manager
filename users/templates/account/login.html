@@ -1,5 +1,7 @@
 {% extends "learning_logs/base.html" %}
 {% load bootstrap4 %}
+{% load i18n %}
+{% load account socialaccount %}
 
 {% block page_header %}
 <div class="container">
@@ -15,6 +17,9 @@
         <div class="row wow fadein">
             <div class="col-8 offset-2">
                 <h2>Log in to your account.</h2>
+                <p>Please sign in with one
+                    of your existing third party accounts. Or, <a href="{% url 'users:customer_register' %}">sign up</a>
+                    for an account and sign in below:
                 {% if form.errors %}
                 <p>Your username and password didn't match. Please try again.</p>
                 {% endif %}
@@ -22,16 +27,15 @@
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}
-                <button name="submit" class="btn btn-primary">Login</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                <a href="{% provider_login_url 'google' %}" class="btn btn btn-danger btn-lg btn-block" role="button" aria-pressed="true">Sign in with Google</a>
                 {% endbuttons %}
                 <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
             </form>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </div>
         </div>
-    </section>
-   
-        
+    </section> 
 
 </div>
 

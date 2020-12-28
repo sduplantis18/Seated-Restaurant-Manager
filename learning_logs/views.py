@@ -71,7 +71,7 @@ def entry(request, entry_id):
     # send the context to the template
     return render(request, 'learning_logs/entry.html', context) 
 
-@login_required
+
 @manager_required
 def new_topic(request):
     """Add a new topic"""
@@ -90,7 +90,7 @@ def new_topic(request):
     context = {'form':form}
     return render(request, 'learning_logs/new_topic.html', context)
 
-@login_required
+
 @manager_required
 def new_entry(request, topic_id):
     """Add new restaurant associated within a venue"""
@@ -113,7 +113,7 @@ def new_entry(request, topic_id):
     context = {'topic':topic, 'form':form}
     return render(request, 'learning_logs/new_entry.html', context)
 
-@login_required
+
 @manager_required
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
@@ -135,7 +135,7 @@ def edit_entry(request, entry_id):
 '''
 This view is restricted to restaurant managers only
 '''
-@login_required
+
 @manager_required
 def delete_topic(request, topic_id):
     """Delete a Topic"""
