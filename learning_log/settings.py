@@ -130,6 +130,8 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 
+
+SOCIALACCOUNT_ADAPTER = 'users.adapter.CustomSocialAccountAdapter'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
