@@ -131,7 +131,7 @@ def orders(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         orders = Order.objects.filter(customer=customer, complete=True)
-        items = OrderItem.objects.filter(order__customer=customer).exclude(order__status='Done')
+        items = OrderItem.objects.filter(order__customer=customer)
 
     else:
         orders = []
