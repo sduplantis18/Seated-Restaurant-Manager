@@ -78,6 +78,10 @@ div.col-md-12 {
 	padding: 5px;
 }
 
+.navbar-toggler--cart {
+    margin: 0 10px 0 auto;
+    border: none;
+  }
 
 .cart-row{
 	display: flex;
