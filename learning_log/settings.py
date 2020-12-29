@@ -117,6 +117,7 @@ AUTH_USER_MODEL = 'users.User'
 
 # Authentication Settings for AllAuth
 ACCOUNT_LOGOUT_REDIRECT = '/'
+LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = {
     'django.contrib.auth.backends.ModelBackend',
@@ -132,6 +133,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
+            'profile',
             'email',
         ],
         'AUTH_PARAMS': {
