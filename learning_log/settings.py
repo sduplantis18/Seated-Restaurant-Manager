@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
 ]
 
-
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,7 +117,7 @@ AUTH_USER_MODEL = 'users.User'
 
 # Authentication Settings for AllAuth
 ACCOUNT_LOGOUT_REDIRECT = '/'
-SITE_ID = 1
+
 AUTHENTICATION_BACKENDS = {
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
