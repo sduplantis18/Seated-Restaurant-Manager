@@ -238,6 +238,11 @@ img.card-img-top {
     padding-right: 0;
 }
 
+.fa-exclamation-circle {
+    color: #4dd0e1;
+    height: 15px;
+}
+
 a {
     text-decoration: none;
 }
