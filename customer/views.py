@@ -130,7 +130,7 @@ def orders(request):
     """View open orders for a customer"""
     if request.user.is_authenticated:
         customer = request.user.customer
-        orders = Order.objects.filter(customer=customer, complete=True)
+        orders = Order.objects.filter(customer=customer, complete=True).order_by('-created_date')
         items = OrderItem.objects.filter(order__customer=customer)
 
     else:

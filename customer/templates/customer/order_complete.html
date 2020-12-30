@@ -2,8 +2,19 @@
 {% load static %}
 
 {% block page_header %}
-<h3>Thank you, {{user.username}}. Your order has been created!</h3>
+<div class="container" style="text-align: center; margin-top: 50px;">
+    <h3>Thank you, {{user.username}}. Your order has been created!</h3>
+</div>
 {% endblock page_header %}
 
 {% block content %}
+
+<div class="col-lg-8" style="text-align: center; margin-top: 30px;">
+    <img style="height: 200px; margin-bottom: 40px;" src="{% static '/shopping.png' %}">
+    <div>
+        <a class="btn btn-outline-primary" href="{% url 'customer:orders' %}">View Order Details</a>
+    </div>
+    
+</div>
+
 {% endblock content %}

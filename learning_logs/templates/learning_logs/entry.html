@@ -21,7 +21,7 @@
     <div class="row">
         {% for menu in menus %}
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="panel panel-info panel-colorful">
+            <div class="panel panel-info panel-colorful"> 
                 <div class="panel-body text-center">
                     <p class="text-uppercase mar-btm text-sm"><a style="color: #fff;;" href="{% url 'learning_logs:menu' menu.id %}">{{menu}}</a></p>
                     <a href="{% url 'learning_logs:menu' menu.id %}"><img src="{% static '/fast-food.png' %}" class="panel-icon"></a>
