@@ -30,9 +30,9 @@
                 <div style="flex: 2">{{item.menu_item.title}}</div>
                 <div style="flex: 1">{{item.menu_item.price}}</div>
                 <div style="flex: 1">
-                    <p class="quantity">{{order.get_cart_items}}</p>
+                    <p class="quantity">{{item.quantity}}</p>
                 </div>
-                <div style="flex: 1">${{order.get_cart_total}}</div>
+                <div style="flex: 1">${{item.get_total|floatformat:2}}</div>
             </div>
             {% else %}
             {% endif %}
