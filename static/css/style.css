@@ -228,9 +228,9 @@ img.card-img-top {
   }
 
 
-.cart-icon {
-    width: 30px;
-    color: turquoise;
+img.cart-icon {
+    width: 20px;
+    color:#39cfe7;
 }
 
 .no-padding {
@@ -274,7 +274,7 @@ a {
   }
   
   .panel-info.panel-colorful {
-    background-color: #4ebcda;
+    background-color: #39cfe7;
     border-color: #4ebcda;
     color: #fff;
     border-radius: 5px;
