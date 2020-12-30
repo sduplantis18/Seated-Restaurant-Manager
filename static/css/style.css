@@ -271,6 +271,7 @@ a {
     background-color: #4ebcda;
     border-color: #4ebcda;
     color: #fff;
+    border-radius: 5px;
   }
 
   .panel-body {
@@ -279,6 +280,10 @@ a {
   
   .panel hr {
     border-color: rgba(0,0,0,0.1);
+  }
+
+  .panel-icon {
+      height: 60px;
   }
 
   /* orders page sytles */

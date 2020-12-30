@@ -1,5 +1,6 @@
 {% extends "learning_logs/base.html" %}
 {% load bootstrap4 %}
+{%  load static %}
 
 {% block page_header %}
 <div class="container" style="margin-bottom: 50px; text-align: center;">
@@ -23,7 +24,7 @@
             <div class="panel panel-info panel-colorful">
                 <div class="panel-body text-center">
                     <p class="text-uppercase mar-btm text-sm"><a style="color: #fff;;" href="{% url 'learning_logs:menu' menu.id %}">{{menu}}</a></p>
-                    <i class="bi bi-shop"></i>
+                    <a href="{% url 'learning_logs:menu' menu.id %}"><img src="{% static '/fast-food.png' %}" class="panel-icon"></a>
                     <hr>
                     <p class="h2 text-thin"></p>
                     <small><span class="text-semibold"><i class="bi bi-shop-window"></i></span></small>

@@ -4,12 +4,12 @@
 
 {% block page_header %}
 <div class="container" style="margin-bottom: 50px;">
-    <h3><a href="{% url 'learning_logs:entry' menu.entry.id %}">< {{ menu.entry }}</a></h3>
+    <h3><a class="btn btn-outline-dark" href="{% url 'learning_logs:entry' menu.entry.id %}">Back to {{ menu.entry }}</a></h3>
 </div>
     
 
 {% if request.user.is_manager %}
-    <p>
+    <p>  
         <a href="{% url 'learning_logs:new_menu_item' menu.id %}">Add Menu Item</a>
     </p>
     {% else %}
