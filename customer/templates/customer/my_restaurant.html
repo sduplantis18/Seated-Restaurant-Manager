@@ -1,0 +1,39 @@
+{% extends "learning_logs/base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container" style="text-align: center; margin-top: 50px;">
+    <h3>Dashboard</h3>
+</div>
+{% endblock page_header %}
+
+
+{% block content %}
+
+<div class="container">
+    <section>
+        <div class="restaurant-row">
+        {% for restaurant in restuarants %}
+        <div class="card">
+            <a class="card-block stretched-link text-decoration-none" href="{% url 'learning_logs:entry' entry.id %}">
+            <img src="{{ entry.image.url }}" class="card-img-top" style="height: 150px;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <small><a href="{% url 'learning_logs:entry' entry.id %}">{{ entry }}</a></small>
+                {% if request.user.is_manager %}
+                    - <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit</a></small>
+                {% else %}
+                {% endif %}
+                </h5>
+            </div>
+            </a>
+        </div>
+        {% empty %}
+            <p>You have not added any restaurants yet.</p>
+        {% endfor %}  
+        </div>
+    </section>
+</div>
+
+
+{% endblock content %}

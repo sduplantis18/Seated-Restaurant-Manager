@@ -1,3 +1,4 @@
+from users.models import Manager
 from learning_logs.views import entry
 from django.contrib import messages
 from django.http import request
@@ -131,6 +132,7 @@ def orders(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         orders = Order.objects.filter(customer=customer, complete=True).order_by('-created_date')
+        
         items = OrderItem.objects.filter(order__customer=customer)
 
     else:
@@ -138,3 +140,15 @@ def orders(request):
         items = []
     context = {'orders':orders, 'items':items}
     return render(request, '../templates/customer/orders.html', context)
+
+
+def my_restaurant(request):
+    "Dashboard view for the my restaurant page"
+    if request.user.is_authenticated:
+        manager = request.user.manager
+        restaurants = Entry.objects.filter(owner=manager).order_by('-date_added')
+    else:
+        print("you have no restaurants")
+        restaurants = []
+    context = {'restaurants': restaurants}
+    return render(request, '../templates/customer/my_restaurant.html', context)
