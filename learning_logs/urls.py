@@ -33,6 +33,11 @@ urlpatterns = [
     path('new_menu_item/<int:menu_id>/', views.new_menu_item, name='new_menu_item'),
     # Page for editing a menu item
     path('edit_menu_item/<int:menu_item_id>/', views.edit_menu_item, name='edit_menu_item'),
+    # Display a dashboard for the vendor
+    path('my_restaurant/', views.my_restaurant, name='my_restaurant'),
+    # Display Detailed order view for managers
+    path('manage_orders/<int:entry_id>/', views.manage_orders, name='manage_orders'),
+
 ]
 
 if settings.DEBUG:

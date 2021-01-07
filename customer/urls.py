@@ -1,4 +1,5 @@
 from os import name, stat
+from django.conf.urls import url
 from django.contrib.auth import logout
 from django.urls import path, include
 from . import views
@@ -24,8 +25,7 @@ urlpatterns = [
     path('order_complete/', views.order_complete, name='order_complete'),
     # track order
     path('orders/', views.orders, name='orders'),
-    # Display a dashboard for the vendor
-    path('my_restaurant/', views.my_restaurant, name='my_restaurant'),
+    
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

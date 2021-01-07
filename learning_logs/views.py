@@ -230,5 +230,27 @@ def edit_menu_item(request, menu_item_id):
     return render(request, 'learning_logs/edit_menu_item.html', context)
 
 
+def my_restaurant(request):
+    "Dashboard view for the my restaurant page"
+    if request.user.is_authenticated:
+        owner = request.user.manager
+        entries = Entry.objects.filter(owner=owner).order_by('-date_added')
+    else:
+        print("you have no restaurants")
+        entries = []
+    context = {'entries':entries}
+    return render(request, 'learning_logs/my_restaurant.html', context)
 
+
+def manage_orders(request, entry_id):
+    """Show a single entry (menu) & all its menu items"""
+    # query DB for entry id and store in entry variable
+    entry = Entry.objects.get(id=entry_id)
+    # store the menu and menu items in a dictionary
+    context = {'entry':entry}
+
+    # send the context to the template
+
+
+    return render(request, 'learning_logs/manage_orders.html', context)
 
