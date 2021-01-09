@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.decorators import manager_required
 from .filters import TopicFilter
-from customer.models import Order, OrderItem
+from customer.models import Order, OrderItem, Seatlocation
 from .models import Topic, Entry, Menu, Menu_item
 from .forms import MenuForm, MenuItemForm, TopicForm, EntryForm
 
@@ -250,9 +250,11 @@ def manage_orders(request, entry_id):
     orders = Order.objects.filter(entry = entry).order_by('-created_date')
     # get a list of items within each order
     items = OrderItem.objects.filter(order__entry = entry)
+    # Get the seat location that the user submitted for the order
+    seats = Seatlocation.objects.filter(order__entry=entry)
 
     # store the entry, orders, and order items in a dict
-    context = {'entry':entry, 'orders':orders, 'items':items}
+    context = {'entry':entry, 'orders':orders, 'items':items, 'seats':seats}
 
     # send the context to the template
     return render(request, 'learning_logs/manage_orders.html', context)

@@ -23,7 +23,13 @@
             <p> Customer Email <strong>{{order.customer}}</strong></p>
             <p>Customer Name: <strong>{{order.customer.user.first_name}}, {{order.customer.user.last_name}}</strong></p>
             <p>Customer Phone Number: <strong>{{order.customer.phone_number}}</strong></p>
-            <p>Seat Location: <strong>Section 200</strong></p>
+            {% for seat in seats %}
+            {% if seat.order.id == order.id %}
+            <p>Seat Location: <strong>{{seat.section}}</strong></p>
+            {% else %}
+            {% endif %}
+            {% empty %}
+            {% endfor %}
 
             {% for item in items %}
             {% if item.order.id == order.id %}
