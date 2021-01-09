@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.decorators import manager_required
 from .filters import TopicFilter
-from customer.models import Order
+from customer.models import Order, OrderItem
 from .models import Topic, Entry, Menu, Menu_item
 from .forms import MenuForm, MenuItemForm, TopicForm, EntryForm
 
@@ -243,14 +243,17 @@ def my_restaurant(request):
 
 
 def manage_orders(request, entry_id):
-    """Show a single entry (menu) & all its menu items"""
+    """Page for restaurant managers to see order details"""
     # query DB for entry id and store in entry variable
     entry = Entry.objects.get(id=entry_id)
-    # store the menu and menu items in a dictionary
-    context = {'entry':entry}
+    # get list of orders for the selected restaurant
+    orders = Order.objects.filter(entry = entry).order_by('-created_date')
+    # get a list of items within each order
+    items = OrderItem.objects.filter(order__entry = entry)
+
+    # store the entry, orders, and order items in a dict
+    context = {'entry':entry, 'orders':orders, 'items':items}
 
     # send the context to the template
-
-
     return render(request, 'learning_logs/manage_orders.html', context)
 

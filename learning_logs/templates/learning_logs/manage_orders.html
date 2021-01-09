@@ -11,15 +11,19 @@
 
 {% block content %}
 <div class="container">
+    {% for order in orders %}
     <div class="col-lg-6" style="padding-left: 1px; padding-right: 1px;">
         <div class="order-summary">
-            <h3>Arena, Restaurant - Order #</h3>
+            <h3>{{order.topic}}, {{order.entry}} - Order #{{order.id}}</h3>
         </div>
         <div class="box-element">
             <h5>Order Details</h5>
             <p>Status: </p>
             <p>Total: </p>
             <p>Seat Location: </p>
+
+            {% for item in items %}
+            {% if item.order.id == order.id %}
             <div class="cart-row">
                 <div style="flex: 2;"></div>
                 <div style="flex: 2;"><strong>Item</strong></div>
@@ -29,15 +33,22 @@
             </div>
             <div class="cart-row">
                 <div style="flex: 2"><img class="row-image" src="{{ item.menu_item.image.url }}"></div>
-                <div style="flex: 2">Chicken Salad</div>
-                <div style="flex: 1">$20.00</div>
+                <div style="flex: 2">{{item.menu_item.title}}</div>
+                <div style="flex: 1">{{item.menu_item.price}}</div>
                 <div style="flex: 1">
-                    <p class="quantity">4</p>
+                    <p class="quantity">{{item.quantity}}</p>
                 </div>
-                <div style="flex: 1">$20.00</div>
+                <div style="flex: 1">${{item.get_total|floatformat:2}}</div>
             </div>
+            {% else %}
+            {% endif %}
+            {% empty %}
+            {% endfor %}
         </div>
     </div>
+    {% empty %}
+    <p>This vendor has not receieved any orders yet.</p>
+    {% endfor %}
 </div>
     
     
