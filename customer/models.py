@@ -61,7 +61,6 @@ class OrderItem(models.Model):
         return total
     
 
-
 class Seatlocation(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)

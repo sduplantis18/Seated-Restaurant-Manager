@@ -12,15 +12,18 @@
 {% block content %}
 <div class="container">
     {% for order in orders %}
-    <div class="col-lg-6" style="padding-left: 1px; padding-right: 1px;">
+    <div class="col-lg-6" style="padding-left: 1px; padding-right: 1px; margin-bottom: 40px;">
         <div class="order-summary">
             <h3>{{order.topic}}, {{order.entry}} - Order #{{order.id}}</h3>
         </div>
         <div class="box-element">
             <h5>Order Details</h5>
-            <p>Status: </p>
-            <p>Total: </p>
-            <p>Seat Location: </p>
+            <p>Status: <strong>{{order.status}}</strong></p>
+            <p>Total: <strong>${{order.get_cart_total}}</strong></p>
+            <p> Customer Email <strong>{{order.customer}}</strong></p>
+            <p>Customer Name: <strong>{{order.customer.user.first_name}}, {{order.customer.user.last_name}}</strong></p>
+            <p>Customer Phone Number: <strong>{{order.customer.phone_number}}</strong></p>
+            <p>Seat Location: <strong>Section 200</strong></p>
 
             {% for item in items %}
             {% if item.order.id == order.id %}
