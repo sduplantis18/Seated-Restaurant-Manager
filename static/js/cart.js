@@ -36,5 +36,18 @@ function updateUserOrder(menuitemId, action){
     })
     .then((data) =>{
         console.log('data:', data)
+        location.reload()
     })
 }
+
+// This function hides the shipping-info div form if the user selects the pickup order method.
+$(document).ready(function() {
+    $('input').change(function() {
+      if ($('input[value="pickup"]').is(':checked')) {
+        $('#shipping-info').hide();
+      }
+      else {
+        $('#shipping-info').show();
+      }
+    });
+  });

@@ -4,7 +4,7 @@
 
 {% block page_header %}
 <div class="container">
-    <h3>Checkout</h3>
+    <h3>Checkout: {{order.entry}}</h3>
 </div>
 {% endblock page_header %}
 
@@ -21,9 +21,39 @@
                         <input required class="form-control" type="email" name="email" placeholder="Email Address..">
                     </div>
                 </div>
+
+                <div>
+                    <h5>Order Method:</h5>
+                    <div class="form-check">
+                        {% if order.entry.delivery == True %}
+                        <input class="form-check-input" type="radio" name="order-type" id="exampleRadios1" value="delivery" checked>
+                        <label class="form-check-label" for="exampleRadios1">
+                          Delivery
+                        </label>
+                      </div>
+                        {% else %}
+                        {% endif %}
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="order-type" id="exampleRadios2" value="pickup">
+                        <label class="form-check-label" for="exampleRadios2">
+                          Pickup
+                        </label>
+                        
+                      </div>
+                      <!-- # Use this behavior to show if delivery is unavailable for this restuarant.
+                      <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+                        <label class="form-check-label" for="exampleRadios3">
+                          Disabled radio
+                        </label>
+                      </div>
+                    -->
+                </div>
                 
+
                 <div id="shipping-info">
                     <hr>
+                    {% if order.entry.delivery == True %}
                     <p>Enter your seat info listed on your ticket:</p>
                     <hr>
                     <div class="form-field">
@@ -38,7 +68,10 @@
                     </div>
                 </div>
                 <hr>
+                {% else %}
+                {% endif %}
                 <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                
             </form>
         </div>
         <br>
@@ -131,7 +164,7 @@
     var form = document.getElementById('form')
 
     form.addEventListener('submit', function(e){
-        e.preventDefault()
+        e.preventDefault() 
         console.log('form submitted')
         document.getElementById('form-button').classList.add('hidden')
         document.getElementById('payment-info').classList.remove('hidden')

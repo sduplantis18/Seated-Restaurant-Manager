@@ -43,7 +43,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
     <a class="navbar-brand" href="{% url 'learning_logs:index' %}"><img src="{% static '/seatedlogo.png' %}" width="130px"></a>
     {% if user.is_customer == True %}
-    <a href="{% url 'customer:cart' %}" class="navbar-toggler navbar-toggler--cart"><img src="{% static '/bag-plus-fill.svg' %}" class="cart-icon"><span class="badge badge-light">0</span></a>
+    <a href="{% url 'customer:cart' %}" class="navbar-toggler navbar-toggler--cart"><img src="{% static '/bag-plus-fill.svg' %}" class="cart-icon"><span class="badge badge-light">{{cartItems}}</span></a>
     {% else %}
     {% endif %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle Navigation">
@@ -65,7 +65,7 @@
                 <a class="nav-link" href="{% url 'customer:orders' %}">My Orders</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'customer:cart' %}" ><img src="{% static '/bag-plus-fill.svg' %}" class="cart-icon"><span class="badge badge-light">0</span></a>
+                <a class="nav-link" href="{% url 'customer:cart' %}" ><img src="{% static '/bag-plus-fill.svg' %}" class="cart-icon"><span class="badge badge-light">{{cartItems}}</span></a>
             </li>
             {% endif %}
             <li class="nav-item">

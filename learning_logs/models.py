@@ -33,6 +33,8 @@ class Entry(models.Model):
     owner = models.ForeignKey(Manager, on_delete=models.CASCADE)
     description = models.CharField(max_length=200, null=True)
     section = models.CharField(max_length=50, null=True)
+    delivery = models.BooleanField(default=True)
+    pickup = models.BooleanField(default=True)
 
     class Meta:
         verbose_name_plural = 'entries'

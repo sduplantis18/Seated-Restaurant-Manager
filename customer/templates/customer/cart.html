@@ -34,6 +34,7 @@
         <div style="flex: 2;"><strong>Price</strong></div>
         <div style="flex: 2;"><strong>Qty.</strong></div>
         <div style="flex: 1;"><strong>Total</strong></div>
+        <div style="flex: .5;"></div>
     </div>
 
     {% for item in items %}
@@ -45,6 +46,7 @@
             <p class="quantity">{{item.quantity}}</p>
         </div>
         <div style="flex: 1">${{item.get_total}}</div>
+        <div style="flex: .5"><img  data-menuitem={{item.menu_item.id}} data-action='remove' class="updatecart" style="padding-left: 5px;" src="{% static 'x-circle-fill.svg' %}"></div>
     </div>
     {% empty %}
         <p>You have not added anything to the cart.</p>

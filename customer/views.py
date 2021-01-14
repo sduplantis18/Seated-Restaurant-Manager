@@ -96,13 +96,15 @@ def cart(request):
             customer = request.user.customer
             order = Order.objects.get(customer=customer, complete=False)
             items = order.orderitem_set.all()
+            cartItems = order.get_cart_items
         except:
             messages.warning(request, "You have not added anything to your cart yet.")
             return render(request, '../templates/customer/cart.html')
     else:
         items = []
         order = {'get_cart_total':0, 'get_cart_items':0 ,'shipping':True}
-    context = {'items':items, 'order':order}
+        cartItems = order['get_cart_items']
+    context = {'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, '../templates/customer/cart.html', context)
 
 

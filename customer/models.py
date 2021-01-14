@@ -5,13 +5,16 @@ from users.models import Customer
 from django.db import models
 
 # Create your models here.
-class Order(models.Model):
-    STATUS = (
+STATUS = (
         ('Submitted', 'Submitted'),
         ('Received', 'Recieved'),
+        ('Ready for Pickup', 'Ready for Pickup'),
         ('Out for delivery', 'Out for delivery'),
         ('Delivered','Delivered')
     )
+
+class Order(models.Model):
+    
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS) 
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
