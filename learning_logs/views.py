@@ -60,8 +60,8 @@ def entry(request, entry_id):
     # query DB for entry id and store in entry variable
     entry = Entry.objects.get(id=entry_id)
     # Ensure an owner exist
-    if entry.owner is None:
-        raise Http404
+    #if entry.owner is None:
+        #raise Http404
     
     # query db for each menu in an entry (restaurant)
     menus = entry.menu_set.order_by('title')

@@ -30,7 +30,7 @@ class Entry(models.Model):
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(null=True, blank=True, upload_to='menu_media')
-    owner = models.ForeignKey(Manager, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Manager, on_delete=models.CASCADE, null=True)
     description = models.CharField(max_length=200, null=True)
     section = models.CharField(max_length=50, null=True)
     delivery = models.BooleanField(default=True)
