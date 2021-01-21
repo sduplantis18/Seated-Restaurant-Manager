@@ -10,7 +10,7 @@ STATUS = (
         ('Received', 'Recieved'),
         ('Ready for Pickup', 'Ready for Pickup'),
         ('Out for delivery', 'Out for delivery'),
-        ('Delivered','Delivered')
+        ('Delivered','Delivered'),
     )
 
 class Order(models.Model):
@@ -22,6 +22,7 @@ class Order(models.Model):
     transaction_id = models.CharField(max_length=200, null=True)
     entry = models.ForeignKey(Entry, on_delete=models.CASCADE, null=True)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
+    pickup = models.BooleanField(default=True, null=False, blank=False)
 
     def __str__(self):
         return str(self.id)
@@ -40,7 +41,7 @@ class Order(models.Model):
 
     @property
     #defines whether or not delivery is reuired or if it will be a pickup order
-    def delivery(self):
+    def delivery(self):  
         delivery = True
         orderitems = self.orderitem_set.all()
         for i in orderitems:
