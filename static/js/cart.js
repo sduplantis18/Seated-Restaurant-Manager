@@ -45,6 +45,10 @@ $(document).ready(function() {
     $('input').change(function() {
       if ($('input[value="pickup"]').is(':checked')) {
         $('#shipping-info').hide();
+        /* set the shippinginfo form data to null for each field if the user selected pickup */
+        document.getElementById('section').value = "Section";
+        document.getElementById('row').value = "Row";
+        document.getElementById('seat').value = "0";
       }
       else {
         $('#shipping-info').show();
