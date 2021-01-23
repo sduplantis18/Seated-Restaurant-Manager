@@ -9,10 +9,13 @@
 {% block content %}
 
     {% for order in orders %}
-    <div class="col-lg-6" style="padding-left: 1px; padding-right: 1px;">
+    <div class="col-lg-6" style="padding-left: 1px; padding-right: 1px; margin-bottom: 5rem;">
         <div class="order-summary">
             <h3>{{order.topic}}, {{order.entry}} - Order #{{order.id}}</h3>
-            <h4>Status: {{order.status}}</h4>
+            <div>
+                <strong>Order Status: {{order.status}}</strong>,
+                <strong>Pickup: {{order.pickup}}</strong>
+            </div>
         </div>
         <div class="box-element">
             <div class="cart-row">
