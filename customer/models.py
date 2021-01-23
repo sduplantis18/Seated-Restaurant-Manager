@@ -33,6 +33,7 @@ class Order(models.Model):
         total = sum([item.get_total for item in orderitems])
         return total
 
+
     @property
     def get_cart_items(self):
         orderitems = self.orderitem_set.all()
@@ -40,6 +41,7 @@ class Order(models.Model):
         return total
 
     @property
+    #TODO need to create a better way to solve this problem. There is now attributes on the entry model to allow the restaurant to set whether or not they want to allow delivery or pickup.
     #defines whether or not delivery is reuired or if it will be a pickup order
     def delivery(self):  
         delivery = True

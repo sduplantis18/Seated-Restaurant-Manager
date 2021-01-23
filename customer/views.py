@@ -74,6 +74,8 @@ def processOrder(request):
 
         #if the user selected delivery set the seat location
         if order.delivery == True:
+            order.pickup = True
+            order.save() #this code is bad. i am lazy. Im essentially hard coding this now, but should be using the ordertype form on the checkout page instead. 
             Seatlocation.objects.create(
                 customer = customer,
 
