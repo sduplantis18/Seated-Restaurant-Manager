@@ -14,7 +14,11 @@
             <h3>{{order.topic}}, {{order.entry}} - Order #{{order.id}}</h3>
             <div>
                 <strong>Order Status: {{order.status}}</strong>,
-                <strong>Pickup: {{order.pickup}}</strong>
+                <strong>Order Type: {% if order.pickup == True %}Pickup
+                    {% else %}
+                    Delivery
+                    {% endif %}
+                </strong>
             </div>
         </div>
         <div class="box-element">
