@@ -1,6 +1,7 @@
+from users.models import Customer
 from django import forms
 from .models import Menu, Menu_item, Topic, Entry
-from customer.models import STATUS
+from customer.models import Order, STATUS
 
 class TopicForm(forms.ModelForm):
     class Meta:
@@ -29,5 +30,8 @@ class MenuItemForm(forms.ModelForm):
         labels = {'title': 'Menu Item', 'price':'price', 'image':'Thumbnail', 'quantity':'quantitiy'}
 
 
-class Status(forms.Form):
-    status = forms.ChoiceField(choices=STATUS)
+class Statusform(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['status']
+

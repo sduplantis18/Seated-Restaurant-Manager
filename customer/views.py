@@ -62,10 +62,11 @@ def processOrder(request):
     #Check to see if the user is authenticated and update the order
     if request.user.is_authenticated:
         customer = request.user.customer
+        customer.phone_number = data['phone_num']['phone']
         order = Order.objects.get(customer=customer, complete = False)
         total = float(data['form']['total'])
         order.transaction_id = transaction_id
-
+        customer.save()
         #if the total equals the get cart total then set order completed to true and order status to recieved.
         if total == order.get_cart_total:
             order.complete = True
@@ -75,7 +76,7 @@ def processOrder(request):
         #if the user selected delivery set the seat location
         if order.delivery == True:
             order.pickup = True
-            order.save() #this code is bad. i am lazy. Im essentially hard coding this now, but should be using the ordertype form on the checkout page instead. 
+            order.save() #this code is bad. being lazy here. Hard coding this for now, but should be using the ordertype form on the checkout page instead. 
             Seatlocation.objects.create(
                 customer = customer,
 

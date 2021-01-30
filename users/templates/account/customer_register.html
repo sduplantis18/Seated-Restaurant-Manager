@@ -1,6 +1,7 @@
 {% extends "learning_logs/base.html" %}
 {% load bootstrap4 %}
 {% block content %}
+{% load account socialaccount %}
 
 <div class="container">
     <section class="mb-2">
@@ -13,10 +14,13 @@
                 {% bootstrap_form form %}
                 {% buttons %}
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-                <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
+                <div style="text-align: center;"><strong>-OR-</strong></div>
+                <a href="{% provider_login_url 'google' %}" class="btn btn btn-danger btn-lg btn-block" role="button" aria-pressed="true">Sign in with Google</a>
                 {% endbuttons %}
+                <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
             </form>
         </div>
+        
     </section>
 </div>
 

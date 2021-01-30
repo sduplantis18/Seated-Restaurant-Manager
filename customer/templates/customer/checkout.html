@@ -50,6 +50,14 @@
                     -->
                 </div>
                 
+                <div id="phonenumber" style="margin-top: 20px;">
+                    <h5>Contact Info:</h5>
+                    <p>Enter your phone number so we can provide important updates on the status of your order.</p>
+                    <div class="form-field">
+                        <input required class="form-control" id="phone" type="tel" name="phone" placeholder="123-456-7891" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required> 
+                    </div>
+                </div>
+
 
                 <div id="shipping-info">
                     <hr>
@@ -71,7 +79,6 @@
                 {% else %}
                 {% endif %}
                 <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
-                
             </form>
         </div>
         <br>
@@ -189,7 +196,11 @@
                 'row':null,
                 'seat':null,
             }
-            //Usingt this logic to do a better job of dynamically determining whether the user selected pickup or delivery later. 
+
+            var phonenumber = {
+                'phone':null,
+            }
+            //Using this logic to do a better job of dynamically determining whether the user selected pickup or delivery later. 
             /*
             if ($('input[value="pickup"]').is(':checked')) {
                 order.pickup = true
@@ -198,11 +209,16 @@
                 order.pickup = false
             }
             */
+            
+
             if(delivery != 'False'){
                 seatLocation.section = form.section.value
                 seatLocation.row = form.row.value
                 seatLocation.seat = form.seat.value
+                phonenumber.phone = form.phone.value
             }
+
+            phonenumber.phone = form.phone.value
 
             if(user == 'AnonymousUser'){
                 userFormData.name = form.name.value
@@ -216,10 +232,11 @@
                     'Content-Type':'application/json',
                     'X-CSRFToken':csrftoken,
                 },
-                body: JSON.stringify({'form':userFormData, 'delivery':seatLocation})
+                body: JSON.stringify({'form':userFormData, 'delivery':seatLocation, 'phone_num':phonenumber})
             })
             .then((response) => response.json())
             .then((data) => {
+                console.log(phonenumber)
                 console.log('sucess:', data);
                 alert('Transaction completed');
 

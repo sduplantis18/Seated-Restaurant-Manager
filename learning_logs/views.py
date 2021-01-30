@@ -8,7 +8,7 @@ from users.decorators import manager_required
 from .filters import TopicFilter
 from customer.models import Order, OrderItem, Seatlocation
 from .models import Topic, Entry, Menu, Menu_item
-from .forms import MenuForm, MenuItemForm, TopicForm, EntryForm
+from .forms import MenuForm, MenuItemForm, Statusform, TopicForm, EntryForm
 
 # Create your views here.
 

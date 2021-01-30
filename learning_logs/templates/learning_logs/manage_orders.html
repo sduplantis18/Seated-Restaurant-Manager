@@ -20,6 +20,12 @@
             <h5>Order Details</h5>
             <p>Status: <strong>{{order.status}}</strong></p>  
             <p>Total: <strong>${{order.get_cart_total}}</strong></p>
+            <p>Order Type: <strong>{% if order.pickup == True %}Pickup
+                {% else %}
+                Delivery
+                {% endif %}
+            </p>
+            </strong>
             <p> Customer Email <strong>{{order.customer}}</strong></p>
             <p>Customer Name: <strong>{{order.customer.user.first_name}}, {{order.customer.user.last_name}}</strong></p>
             <p>Customer Phone Number: <strong>{{order.customer.phone_number}}</strong></p>
