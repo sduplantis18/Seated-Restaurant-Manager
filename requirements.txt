@@ -30,7 +30,7 @@ oauthlib==3.1.0
 Pillow==8.0.1
 psycopg2==2.8.6
 pycparser==2.20
-PyJWT==2.0.0
+PyJWT==1.7.1
 pylint==2.6.0
 python-box==5.1.1
 python-dateutil==2.8.1
@@ -44,9 +44,8 @@ six==1.15.0
 soupsieve==2.0.1
 sqlparse==0.4.1
 toml==0.10.1
+twilio==6.51.1
 urllib3==1.25.11
 validus==0.3.0
 whitenoise==5.2.0
 wrapt==1.12.1
-
-

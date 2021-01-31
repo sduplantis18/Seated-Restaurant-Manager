@@ -1,8 +1,11 @@
+import os
 from django.db.models.deletion import CASCADE, SET_DEFAULT
 from django.db.models.fields import NullBooleanField
-from learning_logs.models import Entry, Topic, Menu_item
+from learning_logs.models import Entry, Topic, Menu_item, User
 from users.models import Customer
 from django.db import models
+from django.db.models.signals import post_save
+from twilio.rest import Client
 
 # Create your models here.
 STATUS = (
@@ -40,6 +43,7 @@ class Order(models.Model):
         total = sum([item.quantity for item in orderitems])
         return total
 
+
     @property
     #TODO need to create a better way to solve this problem. There is now attributes on the entry model to allow the restaurant to set whether or not they want to allow delivery or pickup.
     #defines whether or not delivery is reuired or if it will be a pickup order
@@ -50,7 +54,25 @@ class Order(models.Model):
             if i.menu_item.delivery == False:
                 delivery = False
         return delivery
-
+    
+def order_received(sender, instance, created, **kwargs):
+    if created == False:
+        if instance.status == 'Received':
+            account_sid = 'ACdadc7f168882c4eb4ba972ebd766abbf'
+            auth_token = '42317e9f733c29be3409092db6e940c4'
+            client = Client(account_sid, auth_token)
+            message = client.messages.create(
+                body = 'We got your order! Once your order is ready we will notify you here. Thank you!',
+                from_= '+17733094920',
+                to = '+1'+ instance.customer.phone_number,
+            )
+            print('order is submitted')
+            print(message.sid)
+            #instance.order.save()
+        print('order updated')
+    else:
+        print('this is a new order')
+post_save.connect(order_received, sender=Order)
 
 class OrderItem(models.Model):
     menu_item = models.ForeignKey(Menu_item, on_delete=models.SET_NULL, null=True)

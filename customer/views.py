@@ -62,6 +62,7 @@ def processOrder(request):
     #Check to see if the user is authenticated and update the order
     if request.user.is_authenticated:
         customer = request.user.customer
+        #get the phone number from the json body and assign it to the customer phone number attribute
         customer.phone_number = data['phone_num']['phone']
         order = Order.objects.get(customer=customer, complete = False)
         total = float(data['form']['total'])
