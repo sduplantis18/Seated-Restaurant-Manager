@@ -1,7 +1,9 @@
+from django.forms.formsets import formset_factory
 from users.models import Customer
 from django import forms
 from .models import Menu, Menu_item, Topic, Entry
 from customer.models import Order, STATUS
+
 
 class TopicForm(forms.ModelForm):
     class Meta:
@@ -34,4 +36,7 @@ class Statusform(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['status']
+        labels = {'Update Status': STATUS}
+
+StatusFormSet = formset_factory(Statusform)
 

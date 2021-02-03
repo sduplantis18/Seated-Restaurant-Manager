@@ -54,7 +54,7 @@ class Order(models.Model):
             if i.menu_item.delivery == False:
                 delivery = False
         return delivery
-    
+# This is a django signal function that gets called when the Order object is updated. It checks to see if the status of the order changed to "Recieved"    
 def order_received(sender, instance, created, **kwargs):
     if created == False:
         if instance.status == 'Received':
@@ -68,11 +68,11 @@ def order_received(sender, instance, created, **kwargs):
             )
             print('order is submitted')
             print(message.sid)
-            #instance.order.save()
         print('order updated')
     else:
         print('this is a new order')
 post_save.connect(order_received, sender=Order)
+
 
 class OrderItem(models.Model):
     menu_item = models.ForeignKey(Menu_item, on_delete=models.SET_NULL, null=True)

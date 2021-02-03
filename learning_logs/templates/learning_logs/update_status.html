@@ -1,0 +1,28 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+{%  load static %}
+
+{% block page_header %}
+<div class="container" style="margin-bottom: 50px; text-align: center;">
+    <h3>Manage Orders</h3>
+</div>
+
+{% endblock page_header %}
+
+{% block content %}
+
+<form action="{% url 'learning_logs:update_status' order.id %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    {% buttons %}
+    <button name="submit" class="bt btn-primary">Save</button>
+    {% endbuttons %}
+</form>
+    
+    
+
+{% endblock content %}
+
+
+
+

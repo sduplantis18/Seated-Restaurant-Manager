@@ -1,6 +1,6 @@
 """Defines URL patterns for learning_logs"""
 
-from os import stat
+from os import name, stat
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -37,6 +37,8 @@ urlpatterns = [
     path('my_restaurant/', views.my_restaurant, name='my_restaurant'),
     # Display Detailed order view for managers
     path('manage_orders/<int:entry_id>/', views.manage_orders, name='manage_orders'),
+    # Display form to update an order status
+    path('update_status/<int:order_id>/', views.update_order_status, name='update_status'),
 
 ]
 

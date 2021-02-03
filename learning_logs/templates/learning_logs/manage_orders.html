@@ -19,6 +19,7 @@
         <div class="box-element">
             <h5>Order Details</h5>
             <p>Status: <strong>{{order.status}}</strong></p>  
+            <a href="{% url 'learning_logs:update_status' order.id %}">Update Status</a>
             <p>Total: <strong>${{order.get_cart_total}}</strong></p>
             <p>Order Type: <strong>{% if order.pickup == True %}Pickup
                 {% else %}

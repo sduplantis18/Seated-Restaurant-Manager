@@ -259,3 +259,21 @@ def manage_orders(request, entry_id):
     # send the context to the template
     return render(request, 'learning_logs/manage_orders.html', context)
 
+
+def update_order_status(request, order_id):
+    order = Order.objects.get(id=order_id)
+    entry = order.entry
+    if request.method != 'POST':
+        # Initial request; pre-fill form with current entry
+        form = Statusform(instance=order)
+    else:
+        # POST data submitted; process data
+        form = Statusform(instance=order, data=request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('learning_logs:manage_orders', entry_id=entry.id)
+            
+    
+    context = {'order':order,'form':form}
+    return render(request, 'learning_logs/update_status.html', context)
+
