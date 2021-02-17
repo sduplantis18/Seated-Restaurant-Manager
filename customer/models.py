@@ -54,6 +54,8 @@ class Order(models.Model):
             if i.menu_item.delivery == False:
                 delivery = False
         return delivery
+
+#TODO Need to move the signal functions below into their own singals.py file and reference them in the models. 
 # This is a django signal function that gets called when the Order object is updated. It checks to see if the status of the order changed to "Recieved"    
 def order_received(sender, instance, created, **kwargs):
     if created == False:
@@ -66,9 +68,17 @@ def order_received(sender, instance, created, **kwargs):
                 from_= '+17733094920',
                 to = '+1'+ instance.customer.phone_number,
             )
-            print('order is submitted')
             print(message.sid)
-        print('order updated')
+        elif instance.status == 'Ready for Pickup':
+            account_sid = 'ACdadc7f168882c4eb4ba972ebd766abbf'
+            auth_token = '42317e9f733c29be3409092db6e940c4'
+            client = Client(account_sid, auth_token)
+            message = client.messages.create(
+                body = 'Your order is ready! please come to pickup window and be ready to present your order number. Thank you!',
+                from_= '+17733094920',
+                to = '+1'+ instance.customer.phone_number,
+            )
+            print(message.sid)
     else:
         print('this is a new order')
 post_save.connect(order_received, sender=Order)

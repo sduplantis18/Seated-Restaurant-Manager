@@ -39,6 +39,8 @@ urlpatterns = [
     path('manage_orders/<int:entry_id>/', views.manage_orders, name='manage_orders'),
     # Display form to update an order status
     path('update_status/<int:order_id>/', views.update_order_status, name='update_status'),
+    # Display details for an order from the order manager screen
+    path('order_details/<int:order_id>/', views.order_detail, name='order_detail'),
 
 ]
 

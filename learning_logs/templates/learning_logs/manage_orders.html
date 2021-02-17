@@ -11,56 +11,25 @@
 
 {% block content %}
 <div class="container">
-    {% for order in orders %}
-    <div class="col-lg-6" style="padding-left: 1px; padding-right: 1px; margin-bottom: 40px;">
-        <div class="order-summary">
-            <h3>{{order.topic}}, {{order.entry}} - Order #{{order.id}}</h3>
+    
+    <div class="col-lg-12" style="padding-left: 1px; padding-right: 1px; margin-bottom: 40px;">
+        <div class="cart-row">
+            <div style="flex: 2;"><strong>Order Number</strong></div>
+            <div style="flex: 2;"><strong>Status</strong></div>
+            <div style="flex: 2;"><strong>Order Type</strong></div>
+            <div style="flex: 2;"><strong>Recipient Phone Number</strong></div>
+            <div style="flex: 1;"><strong>Total</strong></div>
         </div>
-        <div class="box-element">
-            <h5>Order Details</h5>
-            <p>Status: <strong>{{order.status}}</strong></p>  
-            <a href="{% url 'learning_logs:update_status' order.id %}">Update Status</a>
-            <p>Total: <strong>${{order.get_cart_total}}</strong></p>
-            <p>Order Type: <strong>{% if order.pickup == True %}Pickup
+        {% for order in orders %}
+        <div class="cart-row">
+            <div style="flex: 2"><a href="{% url 'learning_logs:order_detail' order.id %}">{{order.id}}</a></div>
+            <div style="flex: 2"><a href="{% url 'learning_logs:update_status' order.id %}">{{order.status}}<span style="padding-left: 10px ;"><img src="{% static 'pencil-square.svg' %}"></a></span></div>
+            <div style="flex: 2">{% if order.pickup == True %}Pickup
                 {% else %}
                 Delivery
-                {% endif %}
-            </p>
-            </strong>
-            <p> Customer Email <strong>{{order.customer}}</strong></p>
-            <p>Customer Name: <strong>{{order.customer.user.first_name}}, {{order.customer.user.last_name}}</strong></p>
-            <p>Customer Phone Number: <strong>{{order.customer.phone_number}}</strong></p>
-            {% for seat in seats %}
-            {% if seat.order.id == order.id %}
-            <p>Seat Location: <strong>Section: {{seat.section}}, Row: {{seat.row}}, Seat: {{seat.seat}}</strong></p>
-            {% else %}
-            {% endif %}
-            {% empty %}
-            {% endfor %}
-
-            {% for item in items %}
-            {% if item.order.id == order.id %}
-            <div class="cart-row">
-                <div style="flex: 2;"></div>
-                <div style="flex: 2;"><strong>Item</strong></div>
-                <div style="flex: 1;"><strong>Price</strong></div>
-                <div style="flex: 1;"><strong>Qt.</strong></div>
-                <div style="flex: 1;"><strong>Total</strong></div>
-            </div>
-            <div class="cart-row">
-                <div style="flex: 2"><img class="row-image" src="{{ item.menu_item.image.url }}"></div>
-                <div style="flex: 2">{{item.menu_item.title}}</div>
-                <div style="flex: 1">{{item.menu_item.price}}</div>
-                <div style="flex: 1">
-                    <p class="quantity">{{item.quantity}}</p>
-                </div>
-                <div style="flex: 1">${{item.get_total|floatformat:2}}</div>
-            </div>
-            {% else %}
-            {% endif %}
-            {% empty %}
-            {% endfor %}
-        </div>
+                {% endif %}</div>
+            <div style="flex: 2">{{order.customer.phone_number}}</div>
+            <div style="flex: 1">${{order.get_cart_total}}</div>
     </div>
     {% empty %}
     <p>This vendor has not receieved any orders yet.</p>

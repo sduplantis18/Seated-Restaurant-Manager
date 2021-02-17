@@ -260,6 +260,12 @@ def manage_orders(request, entry_id):
     return render(request, 'learning_logs/manage_orders.html', context)
 
 
+def order_detail(request, order_id):
+    order = Order.objects.get(id=order_id)
+    context = {'order':order}
+    return render(request, 'learning_logs/order_detail.html', context)
+
+
 def update_order_status(request, order_id):
     order = Order.objects.get(id=order_id)
     entry = order.entry
