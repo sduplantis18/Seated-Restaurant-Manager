@@ -105,9 +105,37 @@ def cart(request):
             messages.warning(request, "You have not added anything to your cart yet.")
             return render(request, '../templates/customer/cart.html')
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {} 
+        print('Cart:', cart)
         items = []
         order = {'get_cart_total':0, 'get_cart_items':0 ,'shipping':True}
         cartItems = order['get_cart_items']
+
+        for i in cart:
+            cartItems += cart[i]["quantity"]
+
+            menu_item = Menu_item.objects.get(id=i)
+            total = (menu_item.price * cart[i]["quantity"])
+
+            order['get_cart_total'] += total
+            order['get_cart_items'] += cart[i]["quantity"]
+
+            item = {
+                'menu_item':{
+                    'id':menu_item.id,
+                    'name':menu_item.title,
+                    'price':menu_item.price,
+                    'image':menu_item.image,
+                    },
+                'quantity':cart[i]['quantity'],
+                'get_total':total,
+                }
+            items.append(item)
+
+
     context = {'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, '../templates/customer/cart.html', context)
 

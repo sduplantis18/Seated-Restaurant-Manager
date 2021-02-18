@@ -9,13 +9,40 @@ window.onload = function() {
             console.log('menuitemId:', menuitemId, 'Action:', action)
             console.log('USER', user)
             if(user == 'AnonymousUser'){
-                console.log('Not Logged in');
-                $('#signup-modal').modal('show');
+                addCookieItem(menuitemId, action)
             }else{
                 updateUserOrder(menuitemId, action)
             }
     })       
 }}
+
+function addCookieItem(menuitemId, action){
+    console.log('Not logged in..')
+    if(action == 'add'){
+        if(cart[menuitemId] == undefined){
+            cart[menuitemId] = {'quantity':1}
+            console.log('item added to cart')
+            
+        }else{
+            cart[menuitemId]['quantity'] += 1
+            console.log('added to cart')
+            
+        }
+        
+    }
+    if(action == 'remove'){
+        cart[menuitemId]['quantity'] -= 1
+
+        if(cart[menuitemId]['quantity'] <= 0){
+            console.log('Remove item from cart')
+            delete cart[menuitemId]
+        }
+        
+    }
+    console.log('cart:', cart)
+    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    location.reload()
+}
 
 function updateUserOrder(menuitemId, action){
     console.log('User is logged in, sending data...')

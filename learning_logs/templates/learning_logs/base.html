@@ -31,6 +31,33 @@
     return cookieValue;
     }
     const csrftoken = getToken('csrftoken');
+
+        function getCookie(name){
+            // Split cookie string and get all individual name:value pairs in an array
+            var cookieArr = document.cookie.split(";");
+            
+            // Loop through the array elements
+            for(var i = 0; i < cookieArr.length; i++) {
+                var cookiePair = cookieArr[i].split("=");
+
+                /* Removing whitespace at the beginning of the cookie name and compare it with the given string */
+                if(name == cookiePair[0].trim()) {
+                    // Decode the cookie value and return
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            // Return null if not found
+            return null;
+        }
+        var cart = JSON.parse(getCookie('cart'))
+        if(cart == undefined){
+            cart = {}
+            console.log('Cart was created')
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        }
+
+        console.log('Cart:', cart)
+        
     </script>
     
     
@@ -42,10 +69,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
     <a class="navbar-brand" href="{% url 'learning_logs:index' %}"><img src="{% static '/seatedlogo.png' %}" width="130px"></a>
-    {% if user.is_customer == True %}
     <a href="{% url 'customer:cart' %}" class="navbar-toggler navbar-toggler--cart"><img src="{% static '/bag-plus-fill.svg' %}" class="cart-icon"><span class="badge badge-light">{{cartItems}}</span></a>
-    {% else %}
-    {% endif %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle Navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
