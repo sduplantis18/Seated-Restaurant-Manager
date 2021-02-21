@@ -46,3 +46,8 @@ class Runner(models.Model):
     def __str__(self):
         return self.user.email
 
+class Guest(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField(verbose_name="email", max_length=60, unique=False)
+    phone_number = models.CharField(max_length=20)
+

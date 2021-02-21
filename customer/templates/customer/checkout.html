@@ -30,7 +30,7 @@
                         <label class="form-check-label" for="exampleRadios1">
                           Delivery
                         </label>
-                      </div>
+                    </div>
                         {% else %}
                         {% endif %}
                       <div class="form-check">
@@ -74,11 +74,14 @@
                     <div class="form-field">
                         <input required class="form-control" id="seat" type="text" name="seat" placeholder="Seat..">
                     </div>
+                    {% else %}
+                    {% endif %}
                 </div>
                 <hr>
-                {% else %}
-                {% endif %}
+            <div>
                 <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+            </div>
+                
             </form>
         </div>
         <br>
@@ -161,7 +164,7 @@
         document.getElementById('user-info').innerHTML = ''
     }
 
-    if (delivery == 'False'&& user != 'AnonymousUser'){
+    if (delivery == 'False' && user != 'AnonymousUser' ){
         //hide entire form if user is logged in and delivery is false
         document.getElementById('form-wrapper').classList.add('hidden');
         //Show payment info if logged in user wants to buy an item that can be picked up instead
@@ -211,14 +214,14 @@
             */
             
 
-            if(delivery != 'False'){
+            if(delivery =! 'False'){
                 seatLocation.section = form.section.value
                 seatLocation.row = form.row.value
                 seatLocation.seat = form.seat.value
-                phonenumber.phone = form.phone.value
             }
 
             phonenumber.phone = form.phone.value
+            
 
             if(user == 'AnonymousUser'){
                 userFormData.name = form.name.value
@@ -240,8 +243,10 @@
                 console.log('sucess:', data);
                 alert('Transaction completed');
 
-                cart = {}
-                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+                /* set cart to empty once the user has selected the checkout button */
+            cart = {}
+            console.log('Cart Cleared')
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
 
                 window.location.href = "{% url 'customer:order_complete' %}"
             })

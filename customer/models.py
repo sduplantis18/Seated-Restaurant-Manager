@@ -2,7 +2,7 @@ import os
 from django.db.models.deletion import CASCADE, SET_DEFAULT
 from django.db.models.fields import NullBooleanField
 from learning_logs.models import Entry, Topic, Menu_item, User
-from users.models import Customer
+from users.models import Customer, Guest
 from django.db import models
 from django.db.models.signals import post_save
 from twilio.rest import Client
@@ -26,6 +26,7 @@ class Order(models.Model):
     entry = models.ForeignKey(Entry, on_delete=models.CASCADE, null=True)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
     pickup = models.BooleanField(default=True, null=False, blank=False)
+    guest = models.ForeignKey(Guest, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return str(self.id)

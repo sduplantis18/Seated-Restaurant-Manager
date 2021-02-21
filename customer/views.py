@@ -7,6 +7,7 @@ from django.shortcuts import render
 import datetime
 from .models import *
 import json
+from .utils import cartData, cookieCart, guestOrder
 
 # Create your views here.
 def home(request):
@@ -65,30 +66,33 @@ def processOrder(request):
         #get the phone number from the json body and assign it to the customer phone number attribute
         customer.phone_number = data['phone_num']['phone']
         order = Order.objects.get(customer=customer, complete = False)
-        total = float(data['form']['total'])
-        order.transaction_id = transaction_id
-        customer.save()
-        #if the total equals the get cart total then set order completed to true and order status to recieved.
-        if total == order.get_cart_total:
-            order.complete = True
-            order.status = 'Received'
-        order.save()
-
-        #if the user selected delivery set the seat location
-        if order.delivery == True:
-            order.pickup = True
-            order.save() #this code is bad. being lazy here. Hard coding this for now, but should be using the ordertype form on the checkout page instead. 
-            Seatlocation.objects.create(
-                customer = customer,
-
-                order = order,
-                section = data['delivery']['section'],
-                row = data['delivery']['row'],
-                seat = data['delivery']['seat'],
-            )
 
     else:
-        print('User is not logged in')
+        customer, order = guestOrder(request, data)
+    
+    total = float(data['form']['total'])
+    order.transaction_id = transaction_id
+    print('Guest User Created')
+    customer.save()
+    #if the total equals the get cart total then set order completed to true and order status to recieved.
+    if total == order.get_cart_total:
+        order.complete = True
+        order.status = 'Received'
+    order.save()
+
+    #TODO Need to modify this to work with Guest users as well.
+    #if the user selected delivery set the seat location
+    if order.delivery == True:
+        order.pickup = True
+        order.save() #this code is bad. being lazy here. Hard coding this for now, but should be using the ordertype form on the checkout page instead. 
+        Seatlocation.objects.create(
+            customer = customer,
+
+            order = order,
+            section = data['delivery']['section'],
+            row = data['delivery']['row'],
+            seat = data['delivery']['seat'],
+            ) 
 
     return JsonResponse('Payment Complete', safe=False)
 
@@ -105,35 +109,10 @@ def cart(request):
             messages.warning(request, "You have not added anything to your cart yet.")
             return render(request, '../templates/customer/cart.html')
     else:
-        try:
-            cart = json.loads(request.COOKIES['cart'])
-        except:
-            cart = {} 
-        print('Cart:', cart)
-        items = []
-        order = {'get_cart_total':0, 'get_cart_items':0 ,'shipping':True}
-        cartItems = order['get_cart_items']
-
-        for i in cart:
-            cartItems += cart[i]["quantity"]
-
-            menu_item = Menu_item.objects.get(id=i)
-            total = (menu_item.price * cart[i]["quantity"])
-
-            order['get_cart_total'] += total
-            order['get_cart_items'] += cart[i]["quantity"]
-
-            item = {
-                'menu_item':{
-                    'id':menu_item.id,
-                    'name':menu_item.title,
-                    'price':menu_item.price,
-                    'image':menu_item.image,
-                    },
-                'quantity':cart[i]['quantity'],
-                'get_total':total,
-                }
-            items.append(item)
+        cookieData = cookieCart(request)
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
 
 
     context = {'items':items, 'order':order, 'cartItems':cartItems}
@@ -142,15 +121,21 @@ def cart(request):
 
 def checkout(request):
     if request.user.is_authenticated:
-        customer = request.user.customer
-        order = Order.objects.get(customer=customer, complete=False)
-        items  = order.orderitem_set.all()
+        try:
+            customer = request.user.customer
+            order = Order.objects.get(customer=customer, complete=False)
+            items = order.orderitem_set.all()
+            cartItems = order.get_cart_items
+        except:
+            messages.warning(request, "You have not added anything to your cart yet.")
+            return render(request, '../templates/customer/cart.html')
     else:
-        #create empty cart for now for non logged in users 
-        order = {'get_cart_total':0, 'get_cart_items':0 }
-        items = []
+        cookieData = cookieCart(request)
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
 
-    context = {'items':items, 'order':order}
+    context = {'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, '../templates/customer/checkout.html', context)
 
 #not using this at the moment
