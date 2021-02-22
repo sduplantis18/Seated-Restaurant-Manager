@@ -49,11 +49,11 @@ class Order(models.Model):
     #TODO need to create a better way to solve this problem. There is now attributes on the entry model to allow the restaurant to set whether or not they want to allow delivery or pickup.
     #defines whether or not delivery is reuired or if it will be a pickup order
     def delivery(self):  
-        delivery = True
+        delivery = False
         orderitems = self.orderitem_set.all()
         for i in orderitems:
-            if i.menu_item.delivery == False:
-                delivery = False
+            if i.menu_item.delivery == True:
+                delivery = True
         return delivery
 
 #TODO Need to move the signal functions below into their own singals.py file and reference them in the models. 
@@ -61,25 +61,44 @@ class Order(models.Model):
 def order_received(sender, instance, created, **kwargs):
     if created == False:
         if instance.status == 'Received':
-            account_sid = 'ACdadc7f168882c4eb4ba972ebd766abbf'
-            auth_token = '42317e9f733c29be3409092db6e940c4'
-            client = Client(account_sid, auth_token)
-            message = client.messages.create(
-                body = 'We got your order! Once your order is ready we will notify you here. Thank you!',
-                from_= '+17733094920',
-                to = '+1'+ instance.customer.phone_number,
-            )
-            print(message.sid)
+            if instance.guest.phone_number == None:
+                account_sid = 'ACdadc7f168882c4eb4ba972ebd766abbf'
+                auth_token = '42317e9f733c29be3409092db6e940c4'
+                client = Client(account_sid, auth_token)
+                message = client.messages.create(
+                    body = f'We got your order! Your order number is {instance.id}. Once your order is ready we will notify you here. Thank you!',
+                    from_= '+17733094920',
+                    to = '+1'+ instance.customer.phone_number,
+                )
+                print(message.sid)
+            else:
+                account_sid = 'ACdadc7f168882c4eb4ba972ebd766abbf'
+                auth_token = '42317e9f733c29be3409092db6e940c4'
+                client = Client(account_sid, auth_token)
+                message = client.messages.create(
+                    body = f'We got your order! Your order number is {instance.id}. Once your order is ready we will notify you here. Thank you!',
+                    from_= '+17733094920',
+                    to = '+1'+ instance.guest.phone_number,
+                )
+                print(message.sid)
         elif instance.status == 'Ready for Pickup':
             account_sid = 'ACdadc7f168882c4eb4ba972ebd766abbf'
             auth_token = '42317e9f733c29be3409092db6e940c4'
             client = Client(account_sid, auth_token)
-            message = client.messages.create(
-                body = 'Your order is ready! please come to pickup window and be ready to present your order number. Thank you!',
-                from_= '+17733094920',
-                to = '+1'+ instance.customer.phone_number,
-            )
-            print(message.sid)
+            if instance.guest.phone_number == None:
+                message = client.messages.create(
+                    body = f'Your order is ready! Your order number is {instance.id}. Please come to pickup window and be ready to present your order number. Thank you!',
+                    from_= '+17733094920',
+                    to = '+1'+ instance.guest.phone_number
+                )
+                print(message.sid)
+            else:
+                message = client.messages.create(
+                    body = 'Your order is ready! please come to pickup window and be ready to present your order number. Thank you!',
+                    from_= '+17733094920',
+                    to = '+1'+ instance.customer.phone_number
+                )
+                print(message.sid)
     else:
         print('this is a new order')
 post_save.connect(order_received, sender=Order)
@@ -103,10 +122,11 @@ class OrderItem(models.Model):
 class Seatlocation(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
-    section = models.CharField(max_length=25)
-    row = models.CharField(max_length=10)
-    seat =  models.IntegerField()
+    customer = models.ForeignKey(Customer, null=True, on_delete=models.CASCADE)
+    section = models.CharField(max_length=25, null=True)
+    row = models.CharField(max_length=10, null=True)
+    seat =  models.IntegerField(null=True)
+    guest = models.ForeignKey(Guest, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.section

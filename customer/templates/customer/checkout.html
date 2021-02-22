@@ -244,9 +244,9 @@
                 alert('Transaction completed');
 
                 /* set cart to empty once the user has selected the checkout button */
-            cart = {}
-            console.log('Cart Cleared')
-            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+                cart = {}
+                console.log('Cart Cleared')
+                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
 
                 window.location.href = "{% url 'customer:order_complete' %}"
             })

@@ -66,33 +66,55 @@ def processOrder(request):
         #get the phone number from the json body and assign it to the customer phone number attribute
         customer.phone_number = data['phone_num']['phone']
         order = Order.objects.get(customer=customer, complete = False)
+        total = float(data['form']['total'])
+        order.transaction_id = transaction_id
+        print('Guest User Created')
+        customer.save()
+    #if the user selected delivery set the seat location
+        if order.delivery == True:
+            order.pickup = True
+            order.save() #this code is bad. being lazy here. Hard coding this for now, but should be using the ordertype form on the checkout page instead. 
+            Seatlocation.objects.create(
+                customer = customer,
+
+                order = order,
+                section = data['delivery']['section'],
+                row = data['delivery']['row'],
+                seat = data['delivery']['seat'],
+                ) 
 
     else:
-        customer, order = guestOrder(request, data)
+        guest, order = guestOrder(request, data)
+        total = float(data['form']['total'])
+        order.transaction_id = transaction_id
+        print('Guest User Created')
+        guest.save()
+
+        #if the user selected delivery set the seat location
+        if order.delivery == True:
+            Seatlocation.objects.create(
+                guest = guest,
+
+                order = order,
+                section = data['delivery']['section'],
+                row = data['delivery']['row'],
+                seat = data['delivery']['seat'],
+                ) 
+        else:
+            order.pickup = True
+            order.save() #this code is bad. being lazy here. Hard coding this for now, but should be using the ordertype form on the checkout page instead. 
+            
     
-    total = float(data['form']['total'])
-    order.transaction_id = transaction_id
-    print('Guest User Created')
-    customer.save()
+    
     #if the total equals the get cart total then set order completed to true and order status to recieved.
     if total == order.get_cart_total:
         order.complete = True
         order.status = 'Received'
     order.save()
+    print('Order created successfully')
 
-    #TODO Need to modify this to work with Guest users as well.
-    #if the user selected delivery set the seat location
-    if order.delivery == True:
-        order.pickup = True
-        order.save() #this code is bad. being lazy here. Hard coding this for now, but should be using the ordertype form on the checkout page instead. 
-        Seatlocation.objects.create(
-            customer = customer,
 
-            order = order,
-            section = data['delivery']['section'],
-            row = data['delivery']['row'],
-            seat = data['delivery']['seat'],
-            ) 
+    
 
     return JsonResponse('Payment Complete', safe=False)
 

@@ -1,4 +1,5 @@
 import json
+from learning_logs.views import entry, topic
 from users.models import Guest
 
 from allauth.account.utils import user_email
@@ -13,16 +14,23 @@ def cookieCart(request):
 
     print('Cart:', cart)
     items = []
+    entry = {}
+    topic = {}
     order = {'get_cart_total':0, 'get_cart_items':0 ,'shipping':False}
     cartItems = order['get_cart_items']
-
     for i in cart:
         try:
             cartItems += cart[i]["quantity"]
 
             menu_item = Menu_item.objects.get(id=i)
-            total = (menu_item.price * cart[i]["quantity"])
 
+            total = (menu_item.price * cart[i]["quantity"])
+            topic = Topic.objects.get(entry__menu__menu_item__id=i)
+            print(topic)
+            entry = Entry.objects.get(menu__menu_item__id = i)
+            print(entry)
+            
+                
             order['get_cart_total'] += total
             order['get_cart_items'] += cart[i]["quantity"]
 
@@ -37,11 +45,10 @@ def cookieCart(request):
                 'get_total':total,
                 }
             items.append(item)
-            print(items)
         except:
             pass
             print('Something went wrong')
-    return {'cartItems': cartItems, 'order': order, 'items':items}
+    return {'cartItems': cartItems, 'order': order, 'items':items, 'entry':entry, 'topic':topic}
 
 
 
@@ -74,13 +81,16 @@ def guestOrder(request, data):
     items = cookieData['items']
 
     guest, created = Guest.objects.get_or_create(phone_number=phone_number)
-    #customer.phone_number = phone_number
+    guest.name = name
+    guest.email = email
     print(guest.phone_number)
     guest.save()
 
     order = Order.objects.create(
         guest = guest,
         complete = False,
+        entry = cookieData['entry'], 
+        topic = cookieData['topic']
     )
     print("Order Created")
 
@@ -91,4 +101,5 @@ def guestOrder(request, data):
             order=order,
             quantity=item['quantity'],
         )
+    
     return guest, order
