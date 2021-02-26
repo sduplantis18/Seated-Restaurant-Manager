@@ -82,3 +82,13 @@ $(document).ready(function() {
       }
     });
   });
+
+
+
+  function clearCart() {
+    var cart = JSON.parse(getCookie('cart'))
+    cart = {}
+    console.log('Cart cleared')
+    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    location.reload()
+    }
