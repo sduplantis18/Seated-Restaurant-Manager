@@ -84,8 +84,8 @@ $(document).ready(function() {
   });
 
 
-
-  function clearCart() {
+// This function will clear the cart cookie when a guest user selects the "Clear Cart" button. (This DOES NOT work for logged in users)
+function clearCart() {
     var cart = JSON.parse(getCookie('cart'))
     cart = {}
     console.log('Cart cleared')
