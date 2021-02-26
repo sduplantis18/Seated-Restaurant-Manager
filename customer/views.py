@@ -53,7 +53,9 @@ def updateItem(request):
         
 
 
-
+## The code below temporarily makes the need for a csrf token exempt if a browser blocks the creation of the token for whatever reason. 
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
 def processOrder(request):
     #set the transaction id
     transaction_id = datetime.datetime.now().timestamp()
@@ -140,9 +142,7 @@ def cart(request):
     context = {'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, '../templates/customer/cart.html', context)
 
-## The code below temporarily makes the need for a csrf token exempt if a browser blocks the creation of the token for whatever reason. 
-from django.views.decorators.csrf import csrf_exempt
-@csrf_exempt
+
 def checkout(request):
     if request.user.is_authenticated:
         try:
