@@ -26,18 +26,17 @@
     <div class="restaurant-row">
         {% for entry in entries %}
         <div class="card">
-            <a class="card-block stretched-link text-decoration-none" href="{% url 'learning_logs:entry' entry.id %}">
+            <button type="button" class="btn btn-primary" href="{% url 'learning_logs:entry' entry.id %}">Order Now</button>
+            <a class="card-block stretched-link text-decoration-none" href="{% url 'learning_logs:entry' entry.id %}"></a>
             <img src="{{ entry.image.url }}" class="card-img-top" style="height: 150px;">
             <div class="card-body">
+            {% if request.user.is_manager %}
                 <h5 class="card-title">
-                    <small><a href="{% url 'learning_logs:entry' entry.id %}">{{ entry }}</a></small>
-                {% if request.user.is_manager %}
-                    - <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit</a></small>
-                {% else %}
-                {% endif %}
+                - <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit</a></small>
                 </h5>
             </div>
-            </a>
+            {% else %}
+            {% endif %}
         </div>
         {% empty %}
             <li>There are no restuarants in this venue yet.</li>

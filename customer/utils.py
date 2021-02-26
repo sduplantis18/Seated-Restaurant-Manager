@@ -1,5 +1,4 @@
 import json
-from learning_logs.views import entry, topic
 from users.models import Guest
 
 from allauth.account.utils import user_email
