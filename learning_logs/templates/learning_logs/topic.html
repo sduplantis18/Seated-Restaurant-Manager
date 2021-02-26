@@ -26,7 +26,7 @@
     <div class="restaurant-row" >
         {% for entry in entries %}
         <div class="card" style="border: none;">
-            <button type="button" class="btn btn-primary" href="{% url 'learning_logs:entry' entry.id %}">Order Now</button>
+            <button type="button" class="btn btn-primary" href="{% url 'learning_logs:entry' entry.id %}" style="margin-bottom: 10px;">Order Now</button>
             <a class="card-block stretched-link text-decoration-none" style="border: none;" href="{% url 'learning_logs:entry' entry.id %}"></a>
             <img src="{{ entry.image.url }}" class="card-img-top" style="height: 150px; border: none;">
             <div class="card-body" style="border: none;">
