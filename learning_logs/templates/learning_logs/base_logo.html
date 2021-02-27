@@ -68,7 +68,12 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
-    <a class="navbar-brand" href="{% url 'learning_logs:index' %}"><img src="{% static '/seatedlogo.png' %}" width="100px"></a>
+    <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+        {% if not topic.logo %}
+        <img src="{% static '/seatedlogo.png' %}" width="100px"></a>
+        {% else %}
+        <img src="{{topic.logo.url}}" width="75px"></a>
+        {% endif %}
     <a href="{% url 'customer:cart' %}" class="navbar-toggler navbar-toggler--cart"><img src="{% static '/bag-plus-fill.svg' %}" class="cart-icon"><span class="badge badge-light">{{cartItems}}</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle Navigation">
         <span class="navbar-toggler-icon"></span>

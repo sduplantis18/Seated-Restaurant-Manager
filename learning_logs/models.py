@@ -1,7 +1,7 @@
 from users.models import Manager
 from django.db import models
 from django.conf import settings
-from django.db.models.fields import CharField
+from django.db.models.fields import CharField, NullBooleanField
 from django.forms import ModelChoiceField
 
 User = settings.AUTH_USER_MODEL
@@ -18,6 +18,7 @@ class Topic(models.Model):
     State = CharField(null=False, max_length=50, default='Florida')
     country = CharField(null=False, max_length=50, default='United States')
     image = models.ImageField(null=True, blank=True, upload_to='arena_pics')
+    logo = models.ImageField(null = True, blank=True, upload_to='menu_media')
     
     def __str__(self):
         """Return a string representation of the model"""
