@@ -186,20 +186,20 @@ def menu(request, menu_id):
     # query db for menu_items for each menu and sort by title 
     menu_items = menu.menu_item_set.order_by('title')
 
+
     if request.user.is_authenticated:
-        try:
-            customer = request.user.customer
-            order = Order.objects.get(customer=customer, complete=False)
-            items = order.orderitem_set.all()
-            cartItems = order.get_cart_items
-        except:
-            messages.warning(request, "You have not added anything to your cart yet.")
-            return render(request, '../templates/customer/cart.html')
+        customer = request.user.customer
+        order = Order.objects.get(customer=customer, complete=False)
+        items  = order.orderitem_set.all()
+        cartItems = order.get_cart_items
     else:
+        #create empty cart for now for non logged in users 
         cookieData = cookieCart(request)
         cartItems = cookieData['cartItems']
         order = cookieData['order']
         items = cookieData['items']
+        print('Anonymous cart created')
+
     # store the menu and the menu items in a dictionary
     context = {'menu': menu, 'menu_items': menu_items, 'cartItems':cartItems}
     # send the context to the template
