@@ -4,7 +4,7 @@
 
 {% block page_header %}
 <div class="container" style="margin-bottom: 50px; text-align: center;">
-    <h3><a href="{% url 'learning_logs:topic' entry.topic.id %}">{{ entry.topic }}</a></h3>
+    <h3>Menus</h3>
 </div>
 
 {% endblock page_header %}
@@ -18,9 +18,9 @@
 
 {% endif %}
  <div class="container">
-    <div class="row">
+    <div class="row" style="justify-content: center;">
         {% for menu in menus %}
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-md-3 col-sm-6 col-xs-12" style="width: 80%;">
             <div class="panel panel-info panel-colorful"> 
                 <div class="panel-body text-center">
                     <p class="text-uppercase mar-btm text-sm"><a style="color: #fff;;" href="{% url 'learning_logs:menu' menu.id %}">{{menu}}</a></p>
