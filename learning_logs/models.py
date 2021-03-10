@@ -36,6 +36,7 @@ class Entry(models.Model):
     section = models.CharField(max_length=50, null=True)
     delivery = models.BooleanField(default=True)
     pickup = models.BooleanField(default=True)
+    active = models.BooleanField(default = True)
 
     class Meta:
         verbose_name_plural = 'entries'

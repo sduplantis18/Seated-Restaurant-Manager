@@ -25,6 +25,7 @@
     <section>
     <div class="restaurant-row" >
         {% for entry in entries %}
+        {% if entry.active == True %}
         <div class="card" style="border: none;">
             <button type="button" class="btn btn-primary" href="{% url 'learning_logs:entry' entry.id %}" style="margin-bottom: 10px;">Order Now</button>
             <a class="card-block stretched-link text-decoration-none" style="border: none;" href="{% url 'learning_logs:entry' entry.id %}"></a>
@@ -38,6 +39,8 @@
             {% else %}
             {% endif %}
         </div>
+        {% else %}
+        {% endif %}
         {% empty %}
             <li>There are no restuarants in this venue yet.</li>
         {% endfor %}  

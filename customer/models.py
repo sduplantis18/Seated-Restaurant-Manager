@@ -14,6 +14,7 @@ STATUS = (
         ('Ready for Pickup', 'Ready for Pickup'),
         ('Out for delivery', 'Out for delivery'),
         ('Delivered','Delivered'),
+        ('Picked Up','Picked Up')
     )
 
 class Order(models.Model):

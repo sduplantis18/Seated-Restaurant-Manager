@@ -70,7 +70,6 @@ def processOrder(request):
         order = Order.objects.get(customer=customer, complete = False)
         total = float(data['form']['total'])
         order.transaction_id = transaction_id
-        print('Guest User Created')
         customer.save()
     #if the user selected delivery set the seat location
         if order.delivery == True:
