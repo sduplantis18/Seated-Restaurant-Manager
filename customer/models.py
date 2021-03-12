@@ -90,14 +90,14 @@ def order_received(sender, instance, created, **kwargs):
                 message = client.messages.create(
                     body = f'Your order is ready! Your order number is {instance.id}. Please come to pickup window and be ready to present your order number. Thank you!',
                     from_= '+17733094920',
-                    to = '+1'+ instance.guest.phone_number
+                    to = '+1'+ instance.customer.phone_number
                 )
                 print(message.sid)
             else:
                 message = client.messages.create(
-                    body = 'Your order is ready! please come to pickup window and be ready to present your order number. Thank you!',
+                    body = 'Your order is ready! please come to pickup window and be ready to present your order number & valid state ID if you ordered alcohol. Thank you!',
                     from_= '+17733094920',
-                    to = '+1'+ instance.customer.phone_number
+                    to = '+1'+ instance.guest.phone_number
                 )
                 print(message.sid)
     else:
