@@ -28,7 +28,7 @@
                 {% else %}
                 Delivery
                 {% endif %}</div>
-            <div style="flex: 2">{{order.customer.phone_number}}</div>
+            <div style="flex: 2">{{order.customer.phone_number}}{{order.guest.phone_number}}</div>
             <div style="flex: 1">${{order.get_cart_total}}</div>
     </div>
     {% empty %}
