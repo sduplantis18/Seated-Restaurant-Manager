@@ -25,8 +25,8 @@
             </p>
             </strong>
             <p> Customer Email <strong>{{order.customer}}</strong></p>
-            <p>Customer Name: <strong>{{order.customer.user.first_name}}, {{order.customer.user.last_name}}</strong></p>
-            <p>Customer Phone Number: <strong>{{order.customer.phone_number}}</strong></p>
+            <p>Customer Name: <strong>{{order.customer.user.first_name}}{{order.guest.user.first_name}}, {{order.customer.user.last_name}}{{order.guest.user.last_name}}</strong></p>
+            <p>Customer Phone Number: <strong>{{order.customer.phone_number}}{{order.guest.phone_number}}</strong></p>
             {% for seat in seats %}
             {% if seat.order.id == order.id %}
             <p>Seat Location: <strong>Section: {{seat.section}}, Row: {{seat.row}}, Seat: {{seat.seat}}</strong></p>
