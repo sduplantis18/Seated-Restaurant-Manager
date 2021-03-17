@@ -4,7 +4,7 @@
 
 {% block page_header %}
 <div class="container" style="margin-bottom: 50px; text-align: center;">
-    <h3>Menus</h3>
+    <h3>Menu(s)</h3>
 </div>
 
 {% endblock page_header %}
@@ -23,11 +23,10 @@
         <div class="col-md-3 col-sm-6 col-xs-12" style="width: 80%;">
             <div class="panel panel-info panel-colorful"> 
                 <div class="panel-body text-center">
-                    <p class="text-uppercase mar-btm text-sm"><a style="color: #fff;;" href="{% url 'learning_logs:menu' menu.id %}">{{menu}}</a></p>
-                    <a href="{% url 'learning_logs:menu' menu.id %}"><img src="{% static '/fast-food.png' %}" class="panel-icon"></a>
-                    <hr>
-                    <p class="h2 text-thin"></p>
-                    <small><span class="text-semibold"><i class="bi bi-shop-window"></i></span></small>
+                    <p class="text-uppercase mar-btm text-sm">
+                        <a href="{% url 'learning_logs:menu' menu.id %}"><img src="{% static '/fast-food.png' %}" class="panel-icon"></a>
+                        <a style="color: #fff;;" href="{% url 'learning_logs:menu' menu.id %}">{{menu}}</a></p>
+                    
                 </div>
             </div>
         </div> 
@@ -37,7 +36,12 @@
     </div>
  </div>   
     
-
+ {% if cartItems > 0 %}
+ <div id="checkout" style="position: fixed;  bottom: 30px; width: 90%;">
+     <a href="{% url 'customer:cart' %}" button type="button" class="btn btn-primary btn-lg btn-block checkout">Checkout: {{cartItems}} Item(s)</button></a>
+ </div>
+ {% else %}
+ {% endif %}
      
     
 
