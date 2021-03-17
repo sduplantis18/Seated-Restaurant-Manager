@@ -3,9 +3,7 @@
 {%  load static %}
 
 {% block page_header %}
-<div class="container" style="margin-bottom: 50px; text-align: center;">
-    <h3>Menu(s)</h3>
-</div>
+
 
 {% endblock page_header %}
 
@@ -19,22 +17,25 @@
 {% endif %}
  <div class="container">
     <div class="row" style="justify-content: center;">
-        {% for menu in menus %}
-        <div class="col-md-3 col-sm-6 col-xs-12" style="width: 80%;">
-            <div class="panel panel-info panel-colorful"> 
-                <div class="panel-body text-center">
-                    <p class="text-uppercase mar-btm text-sm">
-                        <a href="{% url 'learning_logs:menu' menu.id %}"><img src="{% static '/fast-food.png' %}" class="panel-icon"></a>
-                        <a style="color: #fff;;" href="{% url 'learning_logs:menu' menu.id %}">{{menu}}</a></p>
-                    
-                </div>
+        
+
+        <div class="card" style="width: 24rem; padding-inline: 0px;">
+            <div class="card-header" style="font-weight: bold;">
+              Select Menu
             </div>
-        </div> 
-        {% empty %}
-        <li>There are no menus in this venue yet.</li>
-        {% endfor %}    
-    </div>
- </div>   
+            <ul class="list-group list-group-flush">
+                {% for menu in menus %}
+                <li class="list-group-item">
+                    <a href="{% url 'learning_logs:menu' menu.id %}" style="color: black;"><img src="{% static '/fast-food.png' %}" class="panel-icon"><span style="margin-left: 5px; vertical-align: middle;">{{menu}}</span></a>
+                </li>
+                {% empty %}
+            <li>There are no menus in this venue yet.</li>
+            {% endfor %} 
+            </ul>
+            
+          </div>
+
+
     
  {% if cartItems > 0 %}
  <div id="checkout" style="position: fixed;  bottom: 30px; width: 90%;">
