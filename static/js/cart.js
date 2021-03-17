@@ -13,7 +13,8 @@ window.onload = function() {
             }else{
                 updateUserOrder(menuitemId, action)
             }
-    })       
+    })  
+        
 }}
 
 function addCookieItem(menuitemId, action){
@@ -26,7 +27,6 @@ function addCookieItem(menuitemId, action){
         }else{
             cart[menuitemId]['quantity'] += 1
             console.log('added to cart')
-            
         }
         
     }
@@ -36,6 +36,8 @@ function addCookieItem(menuitemId, action){
         if(cart[menuitemId]['quantity'] <= 0){
             console.log('Remove item from cart')
             delete cart[menuitemId]
+            
+
         }
         
     }
